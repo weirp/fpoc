@@ -1,9 +1,9 @@
-(ns fulcro-template.api.mutations
+(ns fpoc.api.mutations
   (:require
     [pushy.core :as pushy]
     [fulcro.client.mutations :refer [defmutation]]
     [fulcro.client.routing :as ur]
-    [fulcro-template.ui.html5-routing :as r]
+    [fpoc.ui.html5-routing :as r]
     [om.next :as om]
     [fulcro.client.logging :as log]
     [fulcro.client.core :as fc]))

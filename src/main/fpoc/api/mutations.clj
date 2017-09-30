@@ -1,10 +1,10 @@
-(ns fulcro-template.api.mutations
+(ns fpoc.api.mutations
   (:require
     [om.next.server :as oms]
     [taoensso.timbre :as timbre]
     [fulcro.server :as core :refer [defmutation]]
     [fulcro.server :as server]
-    [fulcro-template.api.user-db :as users]
+    [fpoc.api.user-db :as users]
     [taoensso.timbre :as log]))
 
 (defn commit-new [user-db [table id] entity]

@@ -17,7 +17,7 @@ The project is configured to use:
 see i18n.js and tmp appear here, but they are the temporary files
 for extraction and are in .gitignore already.
 
-./src/main/fulcro_template/locales - The location of the generated
+./src/main/fpoc/locales - The location of the generated
 CLJC locale files. These are used by Fulcro to display strings for
 your supported locales, and are generated from the PO files.
 

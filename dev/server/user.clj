@@ -8,7 +8,7 @@
     [figwheel-sidecar.system :as fig]
     [fulcro-spec.suite :as suite]
     [fulcro-spec.selectors :as sel]
-    fulcro-template.server))
+    fpoc.server))
 
 ;;FIGWHEEL
 (def figwheel (atom nil))
@@ -50,7 +50,7 @@
 (defn- init [path]
   {:pre [(not (started? @system))
          (get cfg-paths path)]}
-  (when-let [new-system (fulcro-template.server/make-system (get cfg-paths path))]
+  (when-let [new-system (fpoc.server/make-system (get cfg-paths path))]
     (reset! system new-system)))
 
 (defn- start []

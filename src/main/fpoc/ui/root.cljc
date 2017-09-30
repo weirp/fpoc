@@ -1,4 +1,4 @@
-(ns fulcro-template.ui.root
+(ns fpoc.ui.root
   (:require
     [fulcro.client.mutations :as mut]
     [fulcro.client.core :as fc]
@@ -7,13 +7,13 @@
     [fulcro.client.mutations :as m]
     [fulcro.client.logging :as log]
     [om.dom :as dom]
-    [fulcro-template.ui.html5-routing :as r]
-    [fulcro-template.ui.login :as l]
-    [fulcro-template.ui.user :as user]
-    [fulcro-template.ui.main :as main]
-    [fulcro-template.ui.preferences :as prefs]
-    [fulcro-template.ui.new-user :as nu]
-    [fulcro-template.api.mutations :as api]
+    [fpoc.ui.html5-routing :as r]
+    [fpoc.ui.login :as l]
+    [fpoc.ui.user :as user]
+    [fpoc.ui.main :as main]
+    [fpoc.ui.preferences :as prefs]
+    [fpoc.ui.new-user :as nu]
+    [fpoc.api.mutations :as api]
     [om.next :as om :refer [defui]]
     [fulcro.server-render :as ssr]
     [fulcro.i18n :refer [tr]]

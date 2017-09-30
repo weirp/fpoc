@@ -1,18 +1,17 @@
-(ns fulcro-template.ui.main
+(ns fpoc.ui.preferences
   (:require [om.next :as om :refer [defui]]
             [fulcro.client.core :as u]
             [fulcro.i18n :refer [tr]]
             [om.dom :as dom]
             [fulcro.client.mutations :as m]))
 
-(defui ^:once MainPage
+(defui ^:once PreferencesPage
   static u/InitialAppState
-  (initial-state [this params] {:id :main})
+  (initial-state [this params] {:id :preferences})
   static om/IQuery
-  (query [this] [:id [:current-user '_]])
+  (query [this] [:id])
   static om/Ident
   (ident [this props] [:main :page])
   Object
   (render [this]
-    (let [{:keys [current-user]} (om/props this)]
-      (dom/div #js {} (tr "Main page")))))
+    (dom/div #js {} (tr "Preferences page"))))

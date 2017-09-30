@@ -1,13 +1,13 @@
-(ns fulcro-template.client
+(ns fpoc.client
   (:require [om.next :as om]
             [fulcro.client.core :as uc]
             [fulcro.client.data-fetch :as f]
-            [fulcro-template.api.mutations :as m]
-            [fulcro-template.ui.html5-routing :as routing]
+            [fpoc.api.mutations :as m]
+            [fpoc.ui.html5-routing :as routing]
             [fulcro.client.mutations :as built-in]
-            [fulcro-template.ui.root :as root]
+            [fpoc.ui.root :as root]
             translations.es
-            [fulcro-template.ui.user :as user]
+            [fpoc.ui.user :as user]
             [fulcro.client.logging :as log]
             [fulcro.server-render :as ssr]))
 

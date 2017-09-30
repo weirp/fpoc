@@ -1,8 +1,8 @@
-(ns fulcro-template.client-main
-  (:require [fulcro-template.client :refer [app]]
+(ns fpoc.client-main
+  (:require [fpoc.client :refer [app]]
             [fulcro.client.core :as core]
             translations.es
-            [fulcro-template.ui.root :as root]))
+            [fpoc.ui.root :as root]))
 
 ;; In dev mode, we mount from cljs/user.cljs
 (reset! app (core/mount @app root/Root "app"))

@@ -1,4 +1,4 @@
-(ns fulcro-template.ui.user
+(ns fpoc.ui.user
   (:require
     [om.dom :as dom]
     [om.next :as om :refer [defui]]

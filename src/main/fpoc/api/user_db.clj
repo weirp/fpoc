@@ -1,4 +1,4 @@
-(ns fulcro-template.api.user-db
+(ns fpoc.api.user-db
   (:require [taoensso.timbre :as timbre]
             [com.stuartsierra.component :as c]))
 

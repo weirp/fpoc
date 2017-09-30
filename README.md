@@ -10,12 +10,12 @@ You can login with `tony@nowhere.com` or `joe@nowhere.com`, the password is `let
 
 It is set up to be deployable to Heroku (or anywhere) as a standalone jar.
 
-Master: <img src="https://api.travis-ci.org/fulcrologic/fulcro-template.svg?branch=master"></img>
-Develop: <img src="https://api.travis-ci.org/fulcrologic/fulcro-template.svg?branch=develop"></img>
+Master: <img src="https://api.travis-ci.org/fulcrologic/fpoc.svg?branch=master"></img>
+Develop: <img src="https://api.travis-ci.org/fulcrologic/fpoc.svg?branch=develop"></img>
 
 ## Features
 
-The app supports a fake user database (see `valid-users` in `src/main/fulcro_template/api/mutations.clj`)
+The app supports a fake user database (see `valid-users` in `src/main/fpoc/api/mutations.clj`)
 with two users. HTML5 Routing is configured, and the routing tree and BIDI config
 are in `html5_routing.cljs`.
 
@@ -60,7 +60,7 @@ you to your desired page after login.
 │   └── figwheel.clj            A clojure script for starting figwheel on build(s)
 ├── src
 │   ├── cards
-│   │   └── fulcro_template  Devcards
+│   │   └── fpoc  Devcards
 │   │       ├── cards.cljs
 │   │       └── intro.cljs
 │   ├── main                         The Main Source Folder
@@ -68,7 +68,7 @@ you to your desired page after login.
 │   │   │   ├── defaults.edn         The server config defaults
 │   │   │   ├── dev.edn              The server config for dev mode
 │   │   │   └── prod.edn             A SUGGGESTED production config for Heroku
-│   │   └── fulcro_template
+│   │   └── fpoc
 │   │       ├── api
 │   │       │   ├── mutations.clj    The server-side implementation of mutations
 │   │       │   ├── mutations.cljs   The client-side impl of mutations
@@ -90,7 +90,7 @@ you to your desired page after login.
 │   │           ├── root.cljc           The UI root
 │   │           └── user.cljc           A representation of User for login
 │   └── test
-│       └── fulcro_template
+│       └── fpoc
 │           ├── CI_runner.cljs          The entry point for CI testing
 │           ├── client_test_main.cljs   The entry point for dev-mode testing
 │           ├── sample_spec.cljc        A sample client/server spec
@@ -245,14 +245,14 @@ Build the standalone Jar with:
 lein uberjar
 ```
 
-will build `target/fulcro_template.jar`.
+will build `target/fpoc.jar`.
 
 The production `prod.edn` file (in src/config) grabs the web PORT from
 the environment (as required by Heroku). So, this jar can be run with:
 
 ```
 export PORT=8080   # the web server port to use
-java -Dconfig=config/prod.edn -jar fulcro_template.jar
+java -Dconfig=config/prod.edn -jar fpoc.jar
 ```
 
 The `Procfile` gives the correct information to heroku, so if you've

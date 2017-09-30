@@ -1,18 +1,18 @@
-(ns fulcro-template.server
+(ns fpoc.server
   (:require
     [fulcro.server :as core]
     [com.stuartsierra.component :as component]
 
     [org.httpkit.server :refer [run-server]]
     [om.next.server :as om]
-    [fulcro-template.api.read :as r]
-    [fulcro-template.api.mutations :as mut]
+    [fpoc.api.read :as r]
+    [fpoc.api.mutations :as mut]
     [om.next :refer [tree->db db->tree factory get-query]]
-    [fulcro-template.api.user-db :as users]
+    [fpoc.api.user-db :as users]
     [om.dom :as dom]
 
-    [fulcro-template.ui.root :as root]
-    [fulcro-template.ui.html5-routing :as routing]
+    [fpoc.ui.root :as root]
+    [fpoc.ui.html5-routing :as routing]
     [fulcro.client.core :as fc]
 
     [bidi.bidi :as bidi]
@@ -32,7 +32,7 @@
     [ring.util.response :as response]
     [fulcro.client.util :as util]
     [fulcro.server-render :as ssr]
-    [fulcro-template.ui.user :as user]
+    [fpoc.ui.user :as user]
     [clojure.string :as str]
     [fulcro.i18n :as i18n]
     [fulcro.client.mutations :as m]))
@@ -63,7 +63,7 @@
       "<div class='container-fluid' id='app'>"
       app-html
       "</div>\n"
-      "<script src='js/fulcro_template.js' type='text/javascript'></script>\n"
+      "<script src='js/fpoc.js' type='text/javascript'></script>\n"
       "</body>\n"
       "</html>\n")))
 

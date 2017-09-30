@@ -1,9 +1,9 @@
-(ns fulcro-template.api.read
+(ns fpoc.api.read
   (:require
-    [fulcro-template.api.mutations :as m]
+    [fpoc.api.mutations :as m]
     [fulcro.server :refer [defquery-entity defquery-root]]
     [taoensso.timbre :as timbre]
-    [fulcro-template.api.user-db :as users]
+    [fpoc.api.user-db :as users]
     [fulcro.server :as server]))
 
 ;; SERVER READ IMPLEMENTATION. We're using `fulcro-parser`. You can either use defmulti on the multimethods

@@ -1,4 +1,4 @@
-(defproject fulcrologic/fulcro-template "0.1.0-SNAPSHOT"
+(defproject fulcrologic/fpoc "0.1.0-SNAPSHOT"
   :description "A clonable & upstream fulcro template"
   :license {:name "MIT" :url "https://opensource.org/licenses/MIT"}
   :min-lein-version "2.7.0"
@@ -16,7 +16,7 @@
                  [com.taoensso/timbre "4.10.0"]
                  [fulcrologic/fulcro-spec "1.0.0-beta9" :scope "test" :exclusions [commons-codec fulcrologic/fulcro commons-fileupload]]]
 
-  :uberjar-name "fulcro_template.jar"
+  :uberjar-name "fpoc.jar"
 
   :source-paths ["src/main"]
   :test-paths ["src/test"]
@@ -31,14 +31,14 @@
                         :source-paths ["src/main"]
                         :jar          true
                         :compiler     {:asset-path    "js/prod"
-                                       :main          fulcro-template.client-main
+                                       :main          fpoc.client-main
                                        :optimizations :whitespace
                                        :externs       ["externs.js"]
-                                       :source-map    "resources/public/js/fulcro_template.js.map"
+                                       :source-map    "resources/public/js/fpoc.js.map"
                                        :output-dir    "resources/public/js/prod"
-                                       :output-to     "resources/public/js/fulcro_template.js"}}]}
+                                       :output-to     "resources/public/js/fpoc.js"}}]}
 
-  :profiles {:uberjar    {:main           fulcro-template.server-main
+  :profiles {:uberjar    {:main           fpoc.server-main
                           :aot            :all
                           :jar-exclusions [#"public/js/prod" #"com/google.*js$"]
                           :prep-tasks     ["clean"
@@ -68,21 +68,21 @@
                                                           :main                 cljs.user
                                                           :optimizations        :none
                                                           :output-dir           "resources/public/js/dev"
-                                                          :output-to            "resources/public/js/fulcro_template.js"
+                                                          :output-to            "resources/public/js/fpoc.js"
                                                           :preloads             [devtools.preload]
                                                           :source-map-timestamp true}}
                                           {:id           "i18n" ;for gettext string extraction
                                            :source-paths ["src/main"]
                                            :compiler     {:asset-path    "i18n"
-                                                          :main          fulcro-template.client-main
+                                                          :main          fpoc.client-main
                                                           :optimizations :whitespace
                                                           :output-dir    "i18n/tmp"
                                                           :output-to     "i18n/i18n.js"}}
                                           {:id           "test"
                                            :source-paths ["src/test" "src/main"]
-                                           :figwheel     {:on-jsload "fulcro-template.client-test-main/client-tests"}
+                                           :figwheel     {:on-jsload "fpoc.client-test-main/client-tests"}
                                            :compiler     {:asset-path    "js/test"
-                                                          :main          fulcro-template.client-test-main
+                                                          :main          fpoc.client-test-main
                                                           :optimizations :none
                                                           :output-dir    "resources/public/js/test"
                                                           :output-to     "resources/public/js/test/test.js"
@@ -90,7 +90,7 @@
                                           {:id           "automated-tests"
                                            :source-paths ["src/test" "src/main"]
                                            :compiler     {:asset-path    "js/ci"
-                                                          :main          fulcro-template.CI-runner
+                                                          :main          fpoc.CI-runner
                                                           :optimizations :none
                                                           :output-dir    "resources/private/js/ci"
                                                           :output-to     "resources/private/js/unit-tests.js"}}
@@ -98,7 +98,7 @@
                                            :figwheel     {:devcards true}
                                            :source-paths ["src/main" "src/cards"]
                                            :compiler     {:asset-path           "js/cards"
-                                                          :main                 fulcro-template.cards
+                                                          :main                 fpoc.cards
                                                           :optimizations        :none
                                                           :output-dir           "resources/public/js/cards"
                                                           :output-to            "resources/public/js/cards.js"

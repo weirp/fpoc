@@ -1,4 +1,4 @@
-(ns fulcro-template.ui.html5-routing
+(ns fpoc.ui.html5-routing
   (:require
     [fulcro.client.routing :as r]
     [fulcro.client.mutations :as m :refer [defmutation]]

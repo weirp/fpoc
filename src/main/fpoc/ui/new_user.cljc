@@ -1,4 +1,4 @@
-(ns fulcro-template.ui.new-user
+(ns fpoc.ui.new-user
   (:require [om.next :as om :refer [defui]]
             [fulcro.client.core :as u]
             [om.dom :as dom]
@@ -9,7 +9,7 @@
             [fulcro.ui.bootstrap3 :as b]
             [fulcro.client.core :as uc]
             [fulcro.client.data-fetch :as df]
-            [fulcro-template.ui.html5-routing :as r]))
+            [fpoc.ui.html5-routing :as r]))
 
 (defmutation check-passwords-match
   [{:keys [form-id field kind]}]

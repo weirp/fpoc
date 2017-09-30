@@ -1,6 +1,6 @@
-(ns fulcro-template.ui.html5-routing-spec
+(ns fpoc.ui.html5-routing-spec
   (:require
-    [fulcro-template.ui.html5-routing :as r]
+    [fpoc.ui.html5-routing :as r]
     [fulcro-spec.core :refer [specification provided behavior assertions when-mocking]]
     [bidi.bidi :as bidi]
     [pushy.core :as pushy]

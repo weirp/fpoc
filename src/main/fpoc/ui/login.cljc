@@ -1,13 +1,13 @@
-(ns fulcro-template.ui.login
+(ns fpoc.ui.login
   (:require [om.next :as om :refer [defui]]
             [fulcro.i18n :refer [tr]]
             [fulcro.client.core :as u]
             [fulcro.client.data-fetch :as df]
             [om.dom :as dom]
-            [fulcro-template.api.mutations :as api]
+            [fpoc.api.mutations :as api]
             [fulcro.client.mutations :as m]
-            [fulcro-template.ui.html5-routing :as r]
-            [fulcro-template.ui.user :as user]
+            [fpoc.ui.html5-routing :as r]
+            [fpoc.ui.user :as user]
             [fulcro.ui.bootstrap3 :as b]
             [fulcro.events :as evt]))
 
