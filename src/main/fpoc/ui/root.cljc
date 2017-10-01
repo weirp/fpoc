@@ -50,7 +50,10 @@
       (dom/div #js {:className "container-fluid"}
         (dom/div #js {:className "navbar-header"}
           (dom/span #js {:className "navbar-brand"}
-            (dom/span nil "Template Brand")
+            (dom/span nil (dom/img #js {:className "img-circle"
+                                        :width "80"
+                                        :src "/images/logo.png"
+                                        :alt "waiv logo"}))
             (dom/br nil)
             (dom/a #js {:onClick #(om/transact! this `[(m/change-locale {:lang :en})]) :href "#"} "en") " | "
             (dom/a #js {:onClick #(om/transact! this `[(m/change-locale {:lang :es})]) :href "#"} "es")))
