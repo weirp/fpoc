@@ -4,7 +4,8 @@
     [fulcro.server :refer [defquery-entity defquery-root]]
     [taoensso.timbre :as timbre]
     [fpoc.api.user-db :as users]
-    [fulcro.server :as server]))
+    [fulcro.server :as server]
+    [fpoc.restBackend :as rbe]))
 
 ;; SERVER READ IMPLEMENTATION. We're using `fulcro-parser`. You can either use defmulti on the multimethods
 ;; (see fulcro.server defmulti declarations) or the defquery-* helper macros.
@@ -18,18 +19,43 @@
     (if user
       (do
         (timbre/info "Logged in user " user)
+        (timbre/info "request is : " request)
         (server/augment-response secure-user
           (fn [resp] (assoc-in resp [:session :uid] real-uid))))
       (do
         (timbre/error "Invalid login using email: " username)
         {:login/error "Invalid credentials"}))))
 
+(defn attempt-waiv-login
+  [request username password]
+
+  )
+
 (defquery-root :current-user
   "Answer the :current-user query. This is also how you log in (passing optional username and password)"
-  (value [{:keys [request user-db]} {:keys [username password]}]
+  (value [{:keys [request user-db] :as env} {:keys [username password] :as params}]
+         (timbre/info "in current user read ")
+         (timbre/info "env keys=" (keys env))
+         (timbre/info "env=" env)
+         (timbre/info "params keys=" (keys params) )
+         (timbre/info "params=" params)
     (if (and username password)
       (attempt-login user-db request username password)
       (let [resp (-> (users/get-user user-db (-> request :session :uid))
                    (select-keys [:uid :name :email]))]
         (timbre/info "Current user: " resp)
         resp))))
+
+(defquery-root :bankinfo
+   "Load bank info from rest server"
+     (value [env params]
+            (let [bi (rbe/getBankInfo2)]
+              (timbre/info "reading bankInfo from rest server")
+              bi)))
+
+(defquery-root :waiv-user
+     (value [{:keys [request] :as env} {:keys [username password :as params]}]
+            (timbre/info "in waiv-user read")
+            (let [loggy-in (rbe/waivLogin username password)]
+              (timbre/info "remote login result=" loggy-in)
+              {:name username :email "x@x.com" :uid "121212121"})))
