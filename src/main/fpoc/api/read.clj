@@ -61,10 +61,14 @@
               {:name username :email username :uid "121212121" :token (loggy-in :token)})))
 
 (defquery-root :accounts
-     (value [{:keys [request] :as env} {:keys [test] :as params} ]
+     (value [{:keys [request] :as env} {:keys [test token] :as params} ]
             (timbre/info "in read :accounts")
             (timbre/info "env=" env)
             (timbre/info "params" params)
 
-            (let [acc (rbe/loadAccounts )]
-              acc)))
+            (let [acc (rbe/loadAccounts token)
+                  result {:account/name (acc "name")
+                          :account/balance (acc "balance")
+                          :account/number (acc "number")}]
+              (timbre/info "returning " result)
+              result)))

@@ -34,17 +34,29 @@
   static u/InitialAppState
   (initial-state [this params] {:id :accounts})
   static om/IQuery
-  (query [this] [:id  [:current-user '_]  ])
+  (query [this] [:id
+                 [:current-user '_]
+                 [:loaded-uri '_]
+
+                  ])
   static om/Ident
   (ident [this props] [:accounts :page])
   Object
   (render [this]
         (let [
-          {:keys [current-user]} (om/props this)
+          {:keys [current-user loaded-uri]} (om/props this)
 
-          accounts (df/load this :accounts Account {:current-user current-user :xx "xxxx"})
-          ]
-      (dom/div #js {}
-               (tr "Accounts page")
-               (map ui-account accounts)
-               ))))
+              ;;; don't load in render, make a button and put this in fn ... like login
+              accounts (df/load this :accounts Account {:params {:token (current-user :token)} })
+              ]
+
+          (dom/div #js {}
+                   (tr "Accounts page")
+                   (dom/p nil "B got " (if loaded-uri loaded-uri "Nothing!"))
+                   (dom/p nil "C got " (if current-user "yiisss" "Nothing!"))
+                   ;(map ui-account accounts)
+                   (dom/p nil (current-user :name))
+                   )
+
+
+      )))

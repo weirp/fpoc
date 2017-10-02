@@ -67,6 +67,14 @@ instance FromJSON BankInfo
 thisBank :: BankInfo
 thisBank = BankInfo {code = "SAND", countryCode = "PHP", currency = "PHP"}
 
+data Account
+  = Account {number :: String, name :: String, balance :: Double}
+  deriving (Show, Generic)
+instance ToJSON Account
+instance FromJSON Account
+
+thisAccount :: Account
+thisAccount = Account {number = "12345678", name = "test account", balance = 1054.32}
 
 {-
 getCookies :: ActionM (Maybe CookiesText) -}
@@ -107,7 +115,7 @@ main = scotty 3002 $ do
 {- post here with
 curl -v -c - -X POST localhost:3002/json/v1/api/users/authenticate -d '{"username":"xx","password":"xx"}'
 -}
-  post "/json/v1/api/users/authenticate" $ do
+  post "/json/v1/api/user/authenticate" $ do
 
     t <- jsonData
     case filter (passesAuth (t ::SiteUser)) siteUsers of
@@ -117,6 +125,9 @@ curl -v -c - -X POST localhost:3002/json/v1/api/users/authenticate -d '{"usernam
       _ -> do
         setCookie "JSESSIONID" "JWIWJSHSHJWJ"
         json (filter (passesAuth (t ::SiteUser)) siteUsers)
+
+  get "/json/v1/api/account" $ do
+    json thisAccount
 
   get "/v1/ api/ integration/ queues" $ do
     {-_
