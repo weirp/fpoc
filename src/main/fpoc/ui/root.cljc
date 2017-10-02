@@ -46,23 +46,25 @@
         logout     #(om/transact! this `[(api/logout {}) (r/set-route! {:handler :login}) :current-user])
         {:keys [ui/loading-data current-user]} (om/props this)
         logged-in? (contains? current-user :name)]
-    (dom/div #js {:className "navbar navbar-default"}
+    (dom/div #js {:className "navbar navbar-expand navbar-light bg-light"}
       (dom/div #js {:className "container-fluid"}
         (dom/div #js {:className "navbar-header"}
           (dom/span #js {:className "navbar-brand"}
-            (dom/span nil (dom/img #js {:className "img-circle"
-                                        :width "80"
+            (dom/span nil (dom/img #js {
+                                        ;:className "img-circle"
+                                        ;:width "80"
                                         :src "/images/logo.png"
                                         :alt "waiv logo"}))
             (dom/br nil)
             (dom/a #js {:onClick #(om/transact! this `[(m/change-locale {:lang :en})]) :href "#"} "en") " | "
-            (dom/a #js {:onClick #(om/transact! this `[(m/change-locale {:lang :es})]) :href "#"} "es")))
+                    (dom/a #js {:onClick #(om/transact! this `[(m/change-locale {:lang :es})]) :href "#"} "es") " | "
+                    (dom/a #js {:onClick #(om/transact! this `[(m/change-locale {:lang :mi_NZ})]) :href "#"} "mi_NZ")))
         (dom/div #js {:className "collapse navbar-collapse"}
           (when logged-in?
-            (dom/ul #js {:className "nav navbar-nav"}
+            (dom/div #js {:className "nav navbar-nav"}
               ;; More nav links here
-              (dom/li nil (dom/a #js {:className "active" :onClick #(r/nav-to! this :main)} (tr "Main")))
-              (dom/li nil (dom/a #js {:className "active" :onClick #(r/nav-to! this :preferences)} (tr "Preferences")))))
+                     (dom/a #js {:className "nav-item nav-link active" :onClick #(r/nav-to! this :main)} (tr "Main"))
+                     (dom/a #js {:className "nav-item nav-link active" :onClick #(r/nav-to! this :preferences)} (tr "Preferences"))))
           (if logged-in?
             (ui-login-stats loading-data current-user logout)
             (ui-login-button loading-data login)))))))

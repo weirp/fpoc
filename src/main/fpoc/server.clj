@@ -55,7 +55,9 @@
       "<head>\n"
       "<meta charset='UTF-8'>\n"
       "<meta name='viewport' content='width=device-width, initial-scale=1'>\n"
-      "<link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet'>\n"
+         ;"<link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet'>\n"
+         "<link href='/css/bootstrap.css' rel='stylesheet'>\n"
+       "<link href='/css/magicsuggest.css' rel='stylesheet'>\n"
       initial-state-script
       "<title>Home Page (Dev Mode)</title>\n"
       "</head>\n"
