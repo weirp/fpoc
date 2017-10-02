@@ -17,11 +17,15 @@
   Object
   (render [this]
     (let [{:keys [account/number account/name account/balance]} (om/props this)]
-      (dom/div nil
-               (b/label nil "Account Number")
-               (dom/h4 nil number)
-               (dom/p nil name)
-               (dom/p nil balance)))))
+      (b/container-fluid {}
+               (b/row {}
+                        (b/col {:xs 6} "Account Number")
+                        (b/col {:xs 3} number)
+                         )
+               (b/row {}
+                        (dom/p nil (str "Name: " name) )
+                        (dom/p nil (str "Balance: " balance) ))
+               ))))
 
 (def ui-account (om/factory Account {:keyfn :account/number}))
 

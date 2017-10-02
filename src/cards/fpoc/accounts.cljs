@@ -4,6 +4,6 @@
             [fpoc.ui.accounts :as accounts]
             [om.dom :as dom]))
 
-(defcard AccountPageCard
-         "Account Page"
+(defcard AccountCard
+         "# An Account Component"
          (accounts/ui-account {:account/number 12343 :account/name "test account" :account/balance 100.21 }))
