@@ -10,7 +10,7 @@
 (defn commit-new [user-db [table id] entity]
   (log/info "Committing new " table entity)
   (case table
-    :user/by-id (users/add-user user-db entity)
+    :user/by-email (users/add-user user-db entity)
     {}))
 
 (defmethod core/server-mutate 'fulcro.ui.forms/commit-to-entity [{:keys [user-db]} k {:keys [form/new-entities] :as p}]

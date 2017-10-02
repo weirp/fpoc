@@ -23,7 +23,9 @@
     (let [{:keys [ui/username ui/password server-down ui/loading-data current-user]} (om/props this)
           bad-credentials? (contains? current-user :login/error)
           login            (fn []
-                             (df/load this :waiv-user user/User {:params {:username username :password password}})
+                             ;(df/load this :waiv-user user/User { :post-mutation `api/login-complete-waiv
+                             ;                                    :params {:username username :password password}
+                             ;                                    :refresh       [:logged-in? :current-user]})
                              (df/load this :current-user user/User {:post-mutation `api/login-complete
                                                                     :params        {:username username :password password}
                                                                     :refresh       [:logged-in? :current-user]})

@@ -12,7 +12,8 @@
   (start [this]
     (timbre/info "Starting in-memory user database")
     (assoc this :valid-users (atom {1 {:uid 1 :name "Tony" :email "tony@nowhere.com" :password "letmein"}
-                                    2 {:uid 2 :name "Joe" :email "joe@nowhere.com" :password "letmein"}})))
+                                    2 {:uid 2 :name "Joe" :email "joe@nowhere.com" :password "letmein"}
+                                    3 {:uid 3 :name "p@waivcard.com" :email "p@waivcard.com" :password "N0P4ssword"}})))
   (stop [this]
     (timbre/info "Stopping in-memory user database")
     this)

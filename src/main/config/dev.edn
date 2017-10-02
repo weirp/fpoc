@@ -1,1 +1,2 @@
-{:port 3000}
+{:port 3000
+ :waivserver "http://localhost:9080/waiv-service"}

@@ -13,7 +13,7 @@
   [{:keys [uid]}]
   (action [{:keys [state]}]
     (swap! state assoc
-      :current-user {:id uid :name ""}
+      :current-user {:id uid :name "" :email "" :token ""}
       :server-down false))
   (remote [env] true))
 
@@ -27,11 +27,11 @@
   [ignored]
   (action [{:keys [state]}]
     (let [uid        (om/tempid)
-          new-user   {:uid uid :name "" :password "" :password2 ""}
-          user-ident [:user/by-id uid]]
+          new-user   {:uid uid :name "" :email "" :token "" :password "" :password2 ""}
+          user-ident [:user/by-email ""]]
       (swap! state (fn [s]
                      (-> s
-                       (assoc :user/by-id {})               ; clear all users
+                       (assoc :user/by-email {})               ; clear all users
                        (assoc-in user-ident new-user)
                        (assoc-in [:new-user :page :form] user-ident)))))))
 
@@ -61,7 +61,7 @@
   "Fulcro mutation: Removes user identity from the local app and asks the server to forget the user as well."
   [p]
   (action [{:keys [state]}]
-    (swap! state assoc :current-user {} :logged-in? false :user/by-id {})
+    (swap! state assoc :current-user {} :logged-in? false :user/by-email {})
     (when (and @r/use-html5-routing @r/history)
       (pushy/set-token! @r/history r/LOGIN-URI)))
   (remote [env] true))

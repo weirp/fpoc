@@ -3,10 +3,11 @@
             [clojure.data.json :as json]
             [devtools.prefs :as prefs]
             [taoensso.timbre :as timbre]
-            [clojure.set :as set]))
+            [clojure.set :as set]
+            [fulcro.server :as server]))
 
 (defn getBankInfo []
-  (http/request {:url "http://localhost:9080/waiv-service/json/v1/api/bank"
+  (http/request {:url (str (:waivserver (server/load-config)) "/json/v1/api/bank")
                  :method :get             ; :post :put :head or other
                  :headers {"X-header" "value"
                            "Content-Type" "application/json"}
@@ -36,7 +37,7 @@
                  :basic-auth ["waiv_api" "1testSecret4WA!V"]
                  :as :text}
         ;config (fulcro.server/load-config "config/dev.edn")
-        base "http://localhost:9080/waiv-service"
+        base (:waivserver (server/load-config))
         {:keys [status headers body error] :as resp} @(http/get (str base "/json/v1/api/bank") options)]
     (if error
       (println "Failed, exception: " error)
@@ -52,43 +53,24 @@
                  :as :text
                  :body (json/write-str {"username" user "password" password})}
         ;config (fulcro.server/load-config "config/dev.edn")
-        base "http://localhost:3002"  ;"http://localhost:9080/waiv-service"
-        url (str base "/json/v1/api/users/authenticate")
+        base (:waivserver (server/load-config))  ;"http://localhost:9080/waiv-service"
+        url (str base "/json/v1/api/user/authenticate")
         {:keys [status headers body error] :as resp} @(http/post url options)]
     (timbre/info "back from call " url)
     (timbre/info "body=" body)
     (timbre/info "data sb = " (json/write-str {"username" user "password" password}))
     (timbre/info "headers=" headers)
 
-    (if error
-      (println "Failed, exception: " error)
+    (if (or error (not= status 200))
+      (println "Failed, exception: " error ", status=" status)
       (println "HTTP GET success: " status))
-    (if error
+    (if (or error (not= 200 status))
       error
       (do
         (timbre/info "error = " error ", status=" status)
         (timbre/info "body = " body)
         (timbre/info "cookie is " (headers :set-cookie))
-        (let [data (json/read-str body)
-              dd {
-                  :name (get-in (get data 0) ["username"])
-                  :email (get-in (get data 0) ["username"])
-                  :token (headers :set-cookie)}
-              ;tsss (mapv #(set/rename-keys % {"username"     :db/id
-              ;                                "title"  :post/title
-              ;                                "userId" :post/user-id
-              ;                                "body"   :post/body})
-              ;           edn)
-              ;edn      (js->clj response)
-              ]
-          (do
-            (timbre/info "data is " data)
-            (timbre/info "dd is " dd)
-
-            dd))
-
-
-
-
-        )))
+        {:name user
+         :email user
+         :token (headers :set-cookie)})))
   )

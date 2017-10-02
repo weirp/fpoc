@@ -15,7 +15,7 @@
   (let [user        (users/get-user user-db username password)
         real-uid    (:uid user)
         secure-user (select-keys user [:name :uid :email])]
-    (Thread/sleep 300)                                      ; pretend it takes a while to auth a user
+    ;(Thread/sleep 300)       ; pretend it takes a while to auth a user
     (if user
       (do
         (timbre/info "Logged in user " user)
@@ -31,7 +31,7 @@
 
   )
 
-(defquery-root :current-user
+(defquery-root :current-userx
   "Answer the :current-user query. This is also how you log in (passing optional username and password)"
   (value [{:keys [request user-db] :as env} {:keys [username password] :as params}]
          (timbre/info "in current user read ")
@@ -53,9 +53,9 @@
               (timbre/info "reading bankInfo from rest server")
               bi)))
 
-(defquery-root :waiv-user
+(defquery-root :current-user
      (value [{:keys [request] :as env} {:keys [username password :as params]}]
             (timbre/info "in waiv-user read")
             (let [loggy-in (rbe/waivLogin username password)]
               (timbre/info "remote login result=" loggy-in)
-              {:name username :email "x@x.com" :uid "121212121"})))
+              {:name username :email username :uid "121212121" :token (loggy-in :token)})))
