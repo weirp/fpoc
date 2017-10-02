@@ -74,3 +74,28 @@
          :email user
          :token (headers :set-cookie)})))
   )
+
+(defn loadAccounts []
+  (let [options {:headers {"X-header" "value"
+                           "Content-Type" "application/json"}
+                 :basic-auth ["waiv_api" "1testSecret4WA!V"]
+                 :as :text}
+        ;config (fulcro.server/load-config "config/dev.edn")
+        base (:waivserver (server/load-config))  ;"http://localhost:9080/waiv-service"
+        url (str base "/json/v1/api/account")
+        {:keys [status headers body error] :as resp} @(http/get url options)]
+    (timbre/info "back from call " url)
+    (timbre/info "body=" body)
+        (timbre/info "headers=" headers)
+
+    (if (or error (not= status 200))
+      (println "Failed, exception: " error ", status=" status)
+      (println "HTTP GET success: " status))
+    (if (or error (not= 200 status))
+      error
+      (do
+        (timbre/info "error = " error ", status=" status)
+        (timbre/info "body = " body)
+        (timbre/info "cookie is " (headers :set-cookie))
+        (json/read-str body))))
+  )

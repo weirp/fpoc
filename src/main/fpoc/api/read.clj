@@ -59,3 +59,12 @@
             (let [loggy-in (rbe/waivLogin username password)]
               (timbre/info "remote login result=" loggy-in)
               {:name username :email username :uid "121212121" :token (loggy-in :token)})))
+
+(defquery-root :accounts
+     (value [{:keys [request] :as env} {:keys [test] :as params} ]
+            (timbre/info "in read :accounts")
+            (timbre/info "env=" env)
+            (timbre/info "params" params)
+
+            (let [acc (rbe/loadAccounts )]
+              acc)))

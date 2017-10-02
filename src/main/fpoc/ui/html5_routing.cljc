@@ -13,7 +13,8 @@
     (r/make-route :login [(r/router-instruction :page-router [:login :page])])
     (r/make-route :new-user [(r/router-instruction :page-router [:new-user :page])])
     (r/make-route :preferences [(r/router-instruction :page-router [:preferences :page])])
-    (r/make-route :main [(r/router-instruction :page-router [:main :page])])))
+    (r/make-route :main [(r/router-instruction :page-router [:main :page])])
+    (r/make-route :accounts [(r/router-instruction :page-router [:accounts :page])])))
 
 (def valid-handlers (-> (get app-routing-tree r/routing-tree-key) keys set))
 
@@ -37,7 +38,8 @@
     (leaf MAIN :main)
     (leaf LOGIN :login)
     (leaf "signup.html" :new-user)
-    (leaf "preferences.html" :preferences)))
+    (leaf "preferences.html" :preferences)
+    (leaf "accounts.html" :accounts)))
 
 (defn invalid-route?
   "Returns true if the given keyword is not a valid location in the routing tree."

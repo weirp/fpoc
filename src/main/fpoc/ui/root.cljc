@@ -12,6 +12,7 @@
     [fpoc.ui.user :as user]
     [fpoc.ui.main :as main]
     [fpoc.ui.preferences :as prefs]
+    [fpoc.ui.accounts :as accounts]
     [fpoc.ui.new-user :as nu]
     [fpoc.api.mutations :as api]
     [om.next :as om :refer [defui]]
@@ -24,6 +25,7 @@
   :login l/LoginPage
   :new-user nu/NewUser
   :preferences prefs/PreferencesPage
+  :accounts accounts/AccountsPage
   :main main/MainPage)
 
 (def ui-pages (om/factory Pages))
@@ -64,7 +66,8 @@
             (dom/div #js {:className "nav navbar-nav"}
               ;; More nav links here
                      (dom/a #js {:className "nav-item nav-link active" :onClick #(r/nav-to! this :main)} (tr "Main"))
-                     (dom/a #js {:className "nav-item nav-link active" :onClick #(r/nav-to! this :preferences)} (tr "Preferences"))))
+                     (dom/a #js {:className "nav-item nav-link active" :onClick #(r/nav-to! this :preferences)} (tr "Preferences"))
+                     (dom/a #js {:className "nav-item nav-link active" :onClick #(r/nav-to! this :accounts)} (tr "Accounts"))))
           (if logged-in?
             (ui-login-stats loading-data current-user logout)
             (ui-login-button loading-data login)))))))
