@@ -30,14 +30,14 @@
 (def ui-account (om/factory Account {:keyfn :account/number}))
 
 
+
 (defui ^:once AccountsPage
   static u/InitialAppState
   (initial-state [this params] {:id :accounts})
   static om/IQuery
   (query [this] [:id
                  [:current-user '_]
-                 [:loaded-uri '_]
-                 [:accounts '_]
+                 [:accountData '_]
 
                   ])
   static om/Ident
@@ -45,7 +45,7 @@
   Object
   (render [this]
         (let [
-          {:keys [current-user loaded-uri accounts]} (om/props this)
+          {:keys [current-user accountData]} (om/props this)
 
               ;;; don't load in render, make a button and put this in fn ... like login
               ;accounts (df/load this :accounts Account {:params {:token (current-user :token)} })
@@ -53,9 +53,8 @@
 
           (dom/div #js {}
                    (tr "Accounts page")
-                   (dom/p nil "B got " (if loaded-uri loaded-uri "Nothing!"))
                    (dom/p nil "C got " (if current-user "yiisss" "Nothing!"))
-                   ;(map ui-account accounts)
+                   (map ui-account accountData)
                    (dom/p nil (current-user :name))
                    )
 

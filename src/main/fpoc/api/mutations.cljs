@@ -9,6 +9,7 @@
     [fulcro.client.core :as fc]
     [fulcro.client.data-fetch :as df]
     [fulcro.client.mutations :as m]
+
     [taoensso.timbre :as timbre]
     [fpoc.ui.accounts :as accounts]))
 
@@ -73,21 +74,12 @@
 
 
 
-(defmethod m/mutate ensure-accounts-loadedx [{:keys [state] :as env} k params]
-  (let [need-to-load? (= nil (get-in @state [:accounts] nil))]
-    ; if missing, put placeholder
-    ; if too old, add remote load to Fulcro queue (see data-fetch for remote-load and load-action)
 
-    (timbre/info "in ensure accounts loaded")
-    {:remote (when need-to-load? (df/remote-load env))
-     :action (fn []
-               (when need-to-load? (df/load-action env [:accounts] accounts/Account)))}))
 
 (defmutation ensure-accounts-loaded
-             [{:keys [app-root ] :as env}]
+   [{:keys [app-root ] :as env}]
              (action [{:keys [component state]}]
-                     (let [need-to-load? (= nil (get-in @state [:accounts] nil))]
-                       (timbre/info "in ensure accounts loaded 2")
-                       (when need-to-load?
-                         (let [acc (df/load-action env [:accounts] accounts/Account)]
-                           (swap! state :accounts acc))))))
+       (let [need-to-load? (= nil (get-in @state [:accountData] nil))]
+         (when need-to-load?
+           (let [acc (df/load env [:accountData] accounts/Account {:remote true} )]
+             (swap! state :accountData acc))))))

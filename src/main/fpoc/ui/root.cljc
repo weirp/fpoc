@@ -3,7 +3,7 @@
     [fulcro.client.mutations :as mut]
     [fulcro.client.core :as fc]
     [fulcro.client.util :as util]
-    [fulcro.client.routing :refer [defrouter]]
+    [fulcro.client.routing :refer [defrouter set-route route-to-impl!]]
     [fulcro.client.mutations :as m]
     [fulcro.client.logging :as log]
     [om.dom :as dom]
@@ -19,6 +19,8 @@
     [fulcro.server-render :as ssr]
     [fulcro.i18n :refer [tr]]
     [fulcro.ui.bootstrap3 :as b]
+
+    [fpoc.api.operations :as ops]
 
 
     #?@(:clj  [[taoensso.timbre :as logx]]
@@ -74,7 +76,7 @@
                      (dom/a #js {:className "nav-item nav-link active" :onClick #(r/nav-to! this :preferences)} (tr "Preferences"))
                      (dom/a #js {:className "nav-item nav-link active"
                                  :onClick
-                                            #(om/transact! this `[ (api/ensure-accounts-loaded) (r/set-route! {:handler :accounts} )] )
+                                            #(om/transact! this `[(ops/check-accounts-loaded {:comp ~this})] )
                                  } (tr "Accounts"))))
           (if logged-in?
             (ui-login-stats loading-data current-user logout)

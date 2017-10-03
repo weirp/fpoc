@@ -60,7 +60,7 @@
               (timbre/info "remote login result=" loggy-in)
               {:name username :email username :uid "121212121" :token (loggy-in :token)})))
 
-(defquery-root :accounts
+(defquery-root :accountData
      (value [{:keys [request] :as env} {:keys [test token] :as params} ]
             (timbre/info "in read :accounts")
             (timbre/info "env=" env)
