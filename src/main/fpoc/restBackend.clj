@@ -6,7 +6,7 @@
             [clojure.set :as set]
             [fulcro.server :as server]))
 
-(def waivBase "http://localhost:3002" )
+(def waivBase ( (server/load-config {:config-path "config/dev.edn"} ) :waivserver)    )
 
 (defn getBankInfo []
   (http/request {:url (str (:waivserver (server/load-config)) "/json/v1/api/bank")

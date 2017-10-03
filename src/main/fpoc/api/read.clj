@@ -67,8 +67,9 @@
             (timbre/info "params" params)
 
             (let [acc (rbe/loadAccounts token)
-                  result {:account/name (acc "name")
-                          :account/balance (acc "balance")
-                          :account/number (acc "number")}]
+                  firstAcc (first acc)
+                  result {:account/name (firstAcc "accountName")
+                          :account/balance (firstAcc "balance")
+                          :account/number (firstAcc "accountNumber")}]
               (timbre/info "returning " result)
               result)))

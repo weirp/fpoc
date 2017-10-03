@@ -6,7 +6,11 @@
     [fpoc.ui.html5-routing :as r]
     [om.next :as om]
     [fulcro.client.logging :as log]
-    [fulcro.client.core :as fc]))
+    [fulcro.client.core :as fc]
+    [fulcro.client.data-fetch :as df]
+    [fulcro.client.mutations :as m]
+    [taoensso.timbre :as timbre]
+    [fpoc.ui.accounts :as accounts]))
 
 (defmutation attempt-login
   "Fulcro mutation: Attempt to log in the user. Triggers a server interaction to see if there is already a cookie."
@@ -66,3 +70,24 @@
       (pushy/set-token! @r/history r/LOGIN-URI)))
   (remote [env] true))
 
+
+
+
+(defmethod m/mutate ensure-accounts-loadedx [{:keys [state] :as env} k params]
+  (let [need-to-load? (= nil (get-in @state [:accounts] nil))]
+    ; if missing, put placeholder
+    ; if too old, add remote load to Fulcro queue (see data-fetch for remote-load and load-action)
+
+    (timbre/info "in ensure accounts loaded")
+    {:remote (when need-to-load? (df/remote-load env))
+     :action (fn []
+               (when need-to-load? (df/load-action env [:accounts] accounts/Account)))}))
+
+(defmutation ensure-accounts-loaded
+             [{:keys [app-root ] :as env}]
+             (action [{:keys [component state]}]
+                     (let [need-to-load? (= nil (get-in @state [:accounts] nil))]
+                       (timbre/info "in ensure accounts loaded 2")
+                       (when need-to-load?
+                         (let [acc (df/load-action env [:accounts] accounts/Account)]
+                           (swap! state :accounts acc))))))

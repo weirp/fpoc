@@ -18,7 +18,12 @@
     [om.next :as om :refer [defui]]
     [fulcro.server-render :as ssr]
     [fulcro.i18n :refer [tr]]
-    [fulcro.ui.bootstrap3 :as b]))
+    [fulcro.ui.bootstrap3 :as b]
+
+
+    #?@(:clj  [[taoensso.timbre :as logx]]
+        :cljs [[goog.log :as logx]])
+    ))
 
 (defrouter Pages :page-router
   (ident [this props] [(:id props) :page])
@@ -67,7 +72,10 @@
               ;; More nav links here
                      (dom/a #js {:className "nav-item nav-link active" :onClick #(r/nav-to! this :main)} (tr "Main"))
                      (dom/a #js {:className "nav-item nav-link active" :onClick #(r/nav-to! this :preferences)} (tr "Preferences"))
-                     (dom/a #js {:className "nav-item nav-link active" :onClick #(r/nav-to! this :accounts)} (tr "Accounts"))))
+                     (dom/a #js {:className "nav-item nav-link active"
+                                 :onClick
+                                            #(om/transact! this `[ (api/ensure-accounts-loaded) (r/set-route! {:handler :accounts} )] )
+                                 } (tr "Accounts"))))
           (if logged-in?
             (ui-login-stats loading-data current-user logout)
             (ui-login-button loading-data login)))))))

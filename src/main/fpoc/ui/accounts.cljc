@@ -37,6 +37,7 @@
   (query [this] [:id
                  [:current-user '_]
                  [:loaded-uri '_]
+                 [:accounts '_]
 
                   ])
   static om/Ident
@@ -44,10 +45,10 @@
   Object
   (render [this]
         (let [
-          {:keys [current-user loaded-uri]} (om/props this)
+          {:keys [current-user loaded-uri accounts]} (om/props this)
 
               ;;; don't load in render, make a button and put this in fn ... like login
-              accounts (df/load this :accounts Account {:params {:token (current-user :token)} })
+              ;accounts (df/load this :accounts Account {:params {:token (current-user :token)} })
               ]
 
           (dom/div #js {}
