@@ -6,13 +6,17 @@
     [bidi.verbose :refer [branch leaf param]]
     [bidi.bidi :as bidi]
     [om.next :as om]
-    [fulcro.client.logging :as log]))
+    [fulcro.client.logging :as log]
+    #?@(:clj  [[clojure.pprint :refer [pprint]]]
+        :cljs [[cljs.pprint :refer [pprint]]])))
 
 (def app-routing-tree
   (r/routing-tree
     (r/make-route :login [(r/router-instruction :page-router [:login :page])])
     (r/make-route :new-user [(r/router-instruction :page-router [:new-user :page])])
     (r/make-route :preferences [(r/router-instruction :page-router [:preferences :page])])
+    (r/make-route :profile [(r/router-instruction :page-router [:profile :page])])
+    (r/make-route :accountLimits [(r/router-instruction :page-router [:accountLimits :page])])
     (r/make-route :main [(r/router-instruction :page-router [:main :page])])
     (r/make-route :accounts [(r/router-instruction :page-router [:accounts :page])])))
 
@@ -39,6 +43,8 @@
     (leaf LOGIN :login)
     (leaf "signup.html" :new-user)
     (leaf "preferences.html" :preferences)
+    (leaf "profile.html" :profile)
+    (leaf "accountLimits.html" :accountLimits)
     (leaf "accounts.html" :accounts)))
 
 (defn invalid-route?
@@ -85,6 +91,7 @@
   used as an app or in devcards. Use this in nav UI links instead of href or transact. "
   ([component page] (nav-to! component page {}))
   ([component page route-params]
+    (pprint (str "in nav-to! " component page))
     #?(:cljs (if (and @history @use-html5-routing)
                (let [path (apply bidi/path-for app-routes page (flatten (seq route-params)))]
                  (pushy/set-token! @history path))

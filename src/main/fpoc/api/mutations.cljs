@@ -44,7 +44,7 @@
   "Fulcro mutation: Attempted login post-mutation the update the UI with the result. Requires the app-root of the mounted application
   so routing can be started."
   [{:keys [app-root]}]
-  (action [{:keys [component state]}]
+  (action [{:keys [component state reconciler] :as actionArgs}]
     ; idempotent (start routing)
     (when app-root
       (r/start-routing app-root))
@@ -60,7 +60,10 @@
           (swap! state assoc :logged-in? true)
           (if (and @r/history @r/use-html5-routing)
             (pushy/set-token! @r/history desired-page)
-            (swap! state ur/update-routing-links {:handler :main})))))))
+            (swap! state ur/update-routing-links {:handler :main}))
+
+          (timbre/info (str "reconciler=" reconciler))
+          (timbre/info (str "actionArgs keys=" (keys actionArgs))))))))
 
 (defmutation logout
   "Fulcro mutation: Removes user identity from the local app and asks the server to forget the user as well."
@@ -83,3 +86,5 @@
          (when need-to-load?
            (let [acc (df/load env [:accountData] accounts/Account {:remote true} )]
              (swap! state :accountData acc))))))
+
+

@@ -11,6 +11,6 @@
   (ident [this props] [:user/by-email (:email props)])
   Object
   (render [this]
-    (dom/span nil (get (om/props this) :name))))
+    (dom/span #js {:className "text-white"} (get (om/props this) :name))))
 
 (def ui-user (om/factory User {:keyfn :email}))

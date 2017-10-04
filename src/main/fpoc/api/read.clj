@@ -73,3 +73,11 @@
                           :account/number (firstAcc "accountNumber")}]
               (timbre/info "returning " result)
               result)))
+
+(defquery-root :token
+               (value [{:keys [request] :as env} {:keys [test token] :as params} ]
+                              (timbre/info "in read :atoken")
+                             (timbre/info "env=" env)
+                             (timbre/info "params" params)
+
+                             {}))

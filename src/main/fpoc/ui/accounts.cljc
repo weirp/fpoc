@@ -7,7 +7,9 @@
             [fulcro.client.data-fetch :as df]
             [taoensso.timbre :as timbre]
             [fpoc.ui.user :as user]
-            [fulcro.ui.bootstrap3 :as b]))
+            [fulcro.ui.bootstrap3 :as b]
+    #?@(:clj  [[clojure.pprint :refer [pprint]]]
+        :cljs [[cljs.pprint :refer [pprint]]])))
 
 (defui Account
   static om/Ident
@@ -33,7 +35,15 @@
 
 (defui ^:once AccountsPage
   static u/InitialAppState
-  (initial-state [this params] {:id :accounts})
+  (initial-state [this params]
+    (do
+      (pprint "in initial-state for AccountsPage")
+      (pprint this)
+      (pprint params)
+      ;(df/load this :accounts {})
+      ;(df/load-action )
+      {:id :accounts :accountData (om/get-query Account)}  )
+    )
   static om/IQuery
   (query [this] [:id
                  [:current-user '_]
