@@ -6,4 +6,9 @@
 
 (defcard AccountCard
          "# An Account Component"
-         (accounts/ui-account {:account/number 12343 :account/name "test account" :account/balance 100.21 }))
+         (accounts/ui-account {:account/number "12343" :account/name "test account" :account/balance 100.21 }))
+
+(defcard AccountPageCard
+         "# An AccountPage Component"
+         (accounts/ui-accounts-page {:accountData [{:account/number "12343" :account/name "test account" :account/balance 100.21 }]
+                                     :current-user {:token "xhsjxdhwxwbuw"}}))

@@ -78,6 +78,7 @@
   )
 
 (defn loadAccounts [token]
+  (timbre/info (str "token is" token))
   (let [options {:headers {"X-header" "value"
                            "Content-Type" "application/json"
                            "Cookie" token}
@@ -85,9 +86,10 @@
                  :as :text}
         ;config (fulcro.server/load-config "config/dev.edn")
         base waivBase                                       ;(:waivserver (server/load-config))  ;"http://localhost:9080/waiv-service"
-        url (str base "/json/v1/api/account")
+        url (str base "/json/v1/api/account/")
         {:keys [status headers body error] :as resp} @(http/get url options)]
     (timbre/info "back from call " url)
+    (timbre/info (str "options=" options))
     (timbre/info "body=" body)
         (timbre/info "headers=" headers)
 
@@ -101,5 +103,10 @@
         (timbre/info "body = " body)
         (timbre/info "cookie is " (headers :set-cookie))
         (timbre/info "edn looks like " (json/read-str body))
-        (json/read-str body))))
-  )
+
+        (let [result (map (fn [acc] {:account/name (acc "accountName")
+                                     :account/balance (acc "balance")
+                                     :account/number (acc "accountNumber")})
+                          (json/read-str body))]
+          (timbre/info (str "mapped to " result))
+          result)))))

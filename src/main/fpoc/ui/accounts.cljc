@@ -7,49 +7,73 @@
             [fulcro.client.data-fetch :as df]
             [taoensso.timbre :as timbre]
             [fpoc.ui.user :as user]
-            [fulcro.ui.bootstrap3 :as b]
-    #?@(:clj  [[clojure.pprint :refer [pprint]]]
-        :cljs [[cljs.pprint :refer [pprint]]])))
+
+    #?@(:clj  [
+            [clojure.pprint :refer [pprint]]]
+        :cljs [[cljs.pprint :refer [pprint]]])
+            [fulcro.client.core :as fc]))
 
 (defui Account
+  static fc/InitialAppState
+  (initial-state
+    [comp-class {:keys [number balance name] :as props}]
+    {:account/number number
+     :account/name name
+     :account/balance balance})
   static om/Ident
-  (ident [this props] [:accounts/by-number (:account/number props)])
+  (ident [this props]
+    (do
+      (pprint (str "here's the props given for Account ident" props))
+      [:accounts/by-number (:account/number props)]) )
   static om/IQuery
   (query [this] [:account/number :account/name :account/balance ])
   Object
   (render [this]
-    (let [{:keys [account/number account/name account/balance]} (om/props this)]
-      (b/container-fluid {}
-               (b/row {}
-                        (b/col {:xs 6} "Account Number")
-                        (b/col {:xs 3} number)
-                         )
-               (b/row {}
-                        (dom/p nil (str "Name: " name) )
-                        (dom/p nil (str "Balance: " balance) ))
-               ))))
+    (let [{:keys [account/number account/name account/balance] :as data} (om/props this)]
+      (dom/div #js {:className "container-fluid col-12"}
+               (pprint (str "in acc, data is " data))
+               (dom/label #js {:className "col-3"} "Account Number")
+               (dom/label #js {:className "col-3" } number)
+               (dom/br nil)
+               (dom/label #js {:className "col-3"} "Name")
+               (dom/label #js {:className "col-3" } name)
+               (dom/br nil)
+               (dom/label #js {:className "col-3"} "Balance")
+               (dom/label #js {:className "col-3" } balance)))))
 
-(def ui-account (om/factory Account {:keyfn :account/number}))
+(def ui-account (om/factory Account
+                            {:keyfn :account/number}
+                            ))
 
 
+(defui AccountList
+  static fc/InitialAppState
+  (initial-state [comp-class {:keys [] :as props}]
+    (do
+      (pprint (str "initial-state" comp-class props))
+      {:accountList/accounts {}}))
+
+  )
+
+(def ui-account-list (om/factory AccountList ))
 
 (defui ^:once AccountsPage
   static u/InitialAppState
   (initial-state [this params]
     (do
-      (pprint "in initial-state for AccountsPage")
-      (pprint this)
-      (pprint params)
+      (pprint (str "initial-state" this params))
+
       ;(df/load this :accounts {})
       ;(df/load-action )
-      {:id :accounts :accountData (om/get-query Account)}  )
+      ;(df/load-action)
+      {:id :accounts
+       :accountData []
+       :myAccountData []}  )
     )
   static om/IQuery
   (query [this] [:id
                  [:current-user '_]
-                 [:accountData '_]
-
-                  ])
+                 [:accountData '_]])
   static om/Ident
   (ident [this props] [:accounts :page])
   Object
@@ -62,11 +86,17 @@
               ]
 
           (dom/div #js {}
-                   (tr "Accounts page")
-                   (dom/p nil "C got " (if current-user "yiisss" "Nothing!"))
-                   (map ui-account accountData)
-                   (dom/p nil (current-user :name))
+                   (pprint (str "current user token=" (current-user :token)))
+                   (pprint (str "accountData size" (count accountData)))
+                   (pprint accountData)
+                   (pprint (first accountData))
+                   (map #(pprint (str "an account " %)) accountData)
+                   ;(map ui-account accountData)
+
+                   (ui-account (first accountData))
                    )
 
 
       )))
+
+(def ui-accounts-page (om/factory AccountsPage ))

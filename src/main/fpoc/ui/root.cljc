@@ -110,12 +110,7 @@
                                           (dom/a #js {:className "nav-item nav-link active" :onClick #(r/nav-to! this :accountLimits)} (tr "Account Limits"))
 
                                           (dom/a #js {:className "nav-item nav-link active" :onClick #(r/nav-to! this :main)} (tr "Main"))
-                                          (dom/a #js {:className "nav-item nav-link active" :onClick #(r/nav-to! this :preferences)} (tr "Preferences"))
-                                          ))
-                               ))
-             (dom/div #js {} "xxx")
-
-             )))
+                                          (dom/a #js {:className "nav-item nav-link active" :onClick #(r/nav-to! this :preferences)} (tr "Preferences")))))))))
 
 ;; Add other modals here.
 (defui ^:once Modals

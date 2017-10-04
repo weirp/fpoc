@@ -63,7 +63,12 @@
             (swap! state ur/update-routing-links {:handler :main}))
 
           (timbre/info (str "reconciler=" reconciler))
-          (timbre/info (str "actionArgs keys=" (keys actionArgs))))))))
+          (timbre/info (str "actionArgs keys=" (keys actionArgs)))
+          (timbre/info "")
+          (timbre/info (str "queueing up load of :accountData with token=" (current-user :token)))
+          (timbre/info "")
+
+          (df/load component :accountData accounts/Account {:params {:token (current-user :token)}}))))))
 
 (defmutation logout
   "Fulcro mutation: Removes user identity from the local app and asks the server to forget the user as well."

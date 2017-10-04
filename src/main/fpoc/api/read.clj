@@ -66,18 +66,13 @@
             (timbre/info "env=" env)
             (timbre/info "params" params)
 
-            (let [acc (rbe/loadAccounts token)
-                  firstAcc (first acc)
-                  result {:account/name (firstAcc "accountName")
-                          :account/balance (firstAcc "balance")
-                          :account/number (firstAcc "accountNumber")}]
-              (timbre/info "returning " result)
-              result)))
+            (let [accounts (rbe/loadAccounts token)]
+              ;(timbre/info "returning " result)
+              accounts)))
 
 (defquery-root :token
-               (value [{:keys [request] :as env} {:keys [test token] :as params} ]
-                              (timbre/info "in read :atoken")
-                             (timbre/info "env=" env)
-                             (timbre/info "params" params)
-
-                             {}))
+     (value [{:keys [request] :as env} {:keys [test token] :as params} ]
+          (timbre/info "in read :atoken")
+         (timbre/info "env=" env)
+         (timbre/info "params" params)
+            {}))
