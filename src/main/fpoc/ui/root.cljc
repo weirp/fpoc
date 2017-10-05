@@ -15,6 +15,7 @@
     [fpoc.ui.profile :as profile]
     [fpoc.ui.accountLimits :as accountLimits]
     [fpoc.ui.accounts :as accounts]
+    [fpoc.ui.paySomeone :as paySomeone]
     [fpoc.ui.new-user :as nu]
     [fpoc.api.mutations :as api]
     [om.next :as om :refer [defui]]
@@ -26,22 +27,25 @@
     [fpoc.api.operations :as ops]
 
 
-    #?@(:clj  [[taoensso.timbre :as logx]]
+    #?@(:clj  [
+    [taoensso.timbre :as logx]]
         :cljs [[goog.log :as logx]])
 
-    #?@(:clj  [[clojure.pprint :refer [pprint]]]
+    #?@(:clj  [
+    [clojure.pprint :refer [pprint]]]
         :cljs [[cljs.pprint :refer [pprint]]])
-    ))
+    [fpoc.ui.paySomeone :as paySomeone]))
 
 (defrouter Pages :page-router
-  (ident [this props] [(:id props) :page])
-  :login l/LoginPage
-  :new-user nu/NewUser
-  :preferences prefs/PreferencesPage
-  :accounts accounts/AccountsPage
-  :profile profile/ProfilePage
-  :accountLimits accountLimits/AccountLimitsPage
-  :main main/MainPage)
+           (ident [this props] [(:id props) :page])
+           :login l/LoginPage
+           :new-user nu/NewUser
+           :preferences prefs/PreferencesPage
+           :accounts accounts/AccountsPage
+           :paySomeone paySomeone/PaySomeonePage
+           :profile profile/ProfilePage
+           :accountLimits accountLimits/AccountLimitsPage
+           :main main/MainPage)
 
 (def ui-pages (om/factory Pages))
 
@@ -62,59 +66,47 @@
   (let [login      #(r/nav-to! this :login)
         logout     #(om/transact! this `[(api/logout {}) (r/set-route! {:handler :login}) :current-user])
         {:keys [ui/loading-data current-user]} (om/props this)
-        logged-in? (contains? current-user :name)
-        loadAccounts (fn []
-                           ;(df/load this :waiv-user user/User { :post-mutation `api/login-complete-waiv
-                           ;                                    :params {:username username :password password}
-                           ;                                    :refresh       [:logged-in? :current-user]})
-                           ;(df/load this :accountData1 accounts/Account {:params        {:token (current-user :token) :target [:accountData1]}})
-                           )]
+        logged-in? (contains? current-user :name)]
 
     (dom/div #js {:className "container col-12"}
              (dom/div #js {:className "navbar navbar-expand navbar-light bg-brand"}
                       (dom/div #js {:className "container-fluid"}
                                (dom/div #js {:className "navbar-header col-2"}
                                         (dom/span #js {:className "navbar-brand col-6"}
-                                                  (dom/span nil (dom/img #js {
-                                                                              ;:className "img-circle"
-                                                                              ;:width "80"
-                                                                              :src "/images/logo.png"
-                                                                              :alt "waiv logo"}))
-                                                  (dom/a #js {:onClick #(om/transact! this `[(m/change-locale {:lang :en})]) :href "#"} "en") " | "
-                                                  (dom/a #js {:onClick #(om/transact! this `[(m/change-locale {:lang :es})]) :href "#"} "es") " | "
-                                                  (dom/a #js {:onClick #(om/transact! this `[(m/change-locale {:lang :mi_NZ})]) :href "#"} "mi_NZ")))
-
+                                                  (dom/span nil
+                                                            (dom/img #js {:src "/images/logo.png" :alt "waiv logo"}))))
 
                                (dom/div #js {:className "col-2"}
-
                                         (if logged-in?
                                           (ui-login-stats loading-data current-user logout)
                                           (ui-login-button loading-data login)))))
 
              (dom/div #js {:className "navbar navbar-expand navbar-light bg-light col-12"}
-                      (dom/div #js {:className "collapse navbar-collapse col-10"}
+                      (dom/div #js {:className "collapse navbar-collapse col-12"}
                                (when logged-in?
-                                 (dom/div #js {:className "nav navbar-nav col-11"}
+                                 (dom/div #js {:className "nav navbar-nav col-12"}
                                           ;; More nav links here
-                                          (dom/a #js {:className "nav-item nav-link active" :onClick #(r/nav-to! this :profile)} (tr "Profile"))
-                                          (dom/a #js {:className "nav-item nav-link active"
-                                                      :onClick
-                                                                 #(r/nav-to! this :accounts)
-                                          ;#(om/transact! this `[(loadAccounts)])
-                                                      } (tr "Account"))
-                                          ;#(om/transact! this `[ (pprint "at start of transact!")  (app/ensure-report-loaded {}) (r/nav-to! ~this :accounts) ])
-                                          ;#(r/nav-to! this :accounts)
-                                          ;#(om/transact! this `[(ops/check-accounts-loaded {:comp ~this}) (r/nav-to! ~this :accounts)] )
-                                          ;#(om/transact! this `[ (r/nav-to! ~this :accounts)] )
+                                          (dom/a #js {:className "nav-item nav-link active col-2" :onClick #(r/nav-to! this :profile)} (tr "Profile"))
+                                          (dom/a #js {:className "nav-item nav-link active col-2" :onClick #(r/nav-to! this :accounts)} (tr "Account"))
+                                          (dom/a #js {:className "nav-item nav-link active col-2" :onClick #(r/nav-to! this :paySomeone)} (tr "Pay Someone"))
+                                          (dom/a #js {:className "nav-item nav-link active col-2" :onClick #(r/nav-to! this :accountLimits)} (tr "Account Limits"))
 
+                                          ;(dom/a #js {:className "nav-item nav-link active" :onClick #(r/nav-to! this :main)} (tr "Main"))
+                                          ;(dom/a #js {:className "nav-item nav-link active col-4" :onClick #(r/nav-to! this :preferences)} (tr "Preferences"))
 
-                                          (dom/a #js {:className "nav-item nav-link active" :onClick #(r/nav-to! this :accountLimits)} (tr "Account Limits"))
-
-                                          (dom/a #js {:className "nav-item nav-link active" :onClick #(r/nav-to! this :main)} (tr "Main"))
-                                          (dom/a #js {:className "nav-item nav-link active" :onClick #(r/nav-to! this :preferences)} (tr "Preferences"))
-
-                                          (dom/a #js {:className "nav-item nav-link active" :onClick #(om/transact! this `[m/change-locale {:lang :es}])} (tr "load accounts") )
-                                          )))))))
+                                          (dom/div #js {:className "navbar-right"}
+                                                   (dom/span #js {:className " navbar-text "}
+                                                             (dom/a #js {:className "navbar-btn btn-sm btn btn-secondary" :onClick #(om/transact! this `[(m/change-locale {:lang :en})]) :href "#"} "en")
+                                                             (dom/a #js {:className "navbar-btn btn-sm btn btn-secondary" :onClick #(om/transact! this `[(m/change-locale {:lang :es})]) :href "#"} "es")
+                                                             (dom/a #js {:className "navbar-btn btn-sm btn btn-secondary" :onClick #(om/transact! this `[(m/change-locale {:lang :mi_NZ})]) :href "#"} "mi_NZ"))
+                                                   (dom/span #js {:className "navbar-text"}
+                                                             (dom/select #js {}
+                                                                         (dom/option #js {:onClick #(om/transact! this `[(m/change-locale {:lang :en})])} "English")
+                                                                         (dom/option #js {:onClick #(om/transact! this `[(m/change-locale {:lang :es})])} "Spanish")
+                                                                         (dom/option #js {:onClick #(om/transact! this `[(m/change-locale {:lang :mi_NZ})])} "Te Reo")
+                                                                         )
+                                                             )
+                                                   ))))))))
 
 ;; Add other modals here.
 (defui ^:once Modals

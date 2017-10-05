@@ -7,11 +7,13 @@
             [fulcro.client.data-fetch :as df]
             [taoensso.timbre :as timbre]
             [fpoc.ui.user :as user]
+            [fpoc.ui.paySomeone :as paySomeone]
 
     #?@(:clj  [
             [clojure.pprint :refer [pprint]]]
         :cljs [[cljs.pprint :refer [pprint]]])
-            [fulcro.client.core :as fc]))
+            [fulcro.client.core :as fc]
+            [fpoc.ui.html5-routing :as r]))
 
 (defui Account
   static fc/InitialAppState
@@ -33,17 +35,28 @@
     (let [{:keys [account/number account/name account/balance] :or {account/number "undef" account/name "undef" account/balance "undef"} :as data} (om/props this)]
       (dom/div #js {:className "container-fluid col-12"}
                (pprint (str "rendering Account, data is " data))
+               (dom/br nil)
                (dom/label #js {:className "col-3"} "Account Number")
-               (dom/label #js {:className "col-3" } number)
+               (dom/label #js {:className "col-2" } number)
+               (dom/button #js {:className "btn btn-primary"
+                                :onClick  (fn [evt]
+                                            (r/nav-to! this :paySomeone {:ui/internationalPayment false}))} "Account to Account Transfer")
                (dom/br nil)
                (dom/label #js {:className "col-3"} "Name")
                (dom/label #js {:className "col-3" } name)
                (dom/br nil)
                (dom/label #js {:className "col-3"} "Balance")
-               (dom/label #js {:className "col-3" } balance)))))
+               (dom/label #js {:className "col-2" } balance)
+               (dom/button #js {:className "btn btn-primary"
+                                :onClick  (fn [evt]
+                                            (r/nav-to! this :paySomeone {:ui/internationalPayment true}))} "Send Money Abroad")
+               (dom/br nil)
+
+
+
+               ))))
 
 (def ui-account (om/factory Account {:keyfn :account/number}))
-
 
 
 (defui ^:once AccountsPage
