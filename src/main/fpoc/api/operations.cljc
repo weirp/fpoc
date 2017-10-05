@@ -47,6 +47,9 @@
     {:action (fn []
                (pprint "in ensure-report-loaded")
                ;(when is-missing? (swap! state add-report-placeholder report-id))
-               (when is-missing? (df/load-action env [:accountData] {})))
-     :remote (when is-missing? (df/remote-load env))}))
+               ;(when is-missing? (df/load-action env [:accountData] {}))
+               )
+     ;:remote (when is-missing? (df/remote-load env))
+
+     }))
 

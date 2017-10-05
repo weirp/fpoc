@@ -41,3 +41,8 @@
         (fn [resp] (assoc resp :session nil))))))
 
 
+
+(defmutation ensure-accounts-loaded
+             [{:keys [app-root ] :as env}]
+             (action [{:keys [component state]}]
+                     (timbre/info "server ensure-accounts-loaded")))

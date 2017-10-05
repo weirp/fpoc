@@ -11,6 +11,7 @@
     [fulcro.client.mutations :as m]
 
     [taoensso.timbre :as timbre]
+    [cljs.pprint :refer [pprint]]
     [fpoc.ui.accounts :as accounts]))
 
 (defmutation attempt-login
@@ -68,7 +69,7 @@
           (timbre/info (str "queueing up load of :accountData with token=" (current-user :token)))
           (timbre/info "")
 
-          (df/load component :accountData accounts/Account {:params {:token (current-user :token)}}))))))
+          (df/load component :accountData1 accounts/Account {:params {:token (current-user :token)}}))))))
 
 (defmutation logout
   "Fulcro mutation: Removes user identity from the local app and asks the server to forget the user as well."
@@ -86,10 +87,15 @@
 
 (defmutation ensure-accounts-loaded
    [{:keys [app-root ] :as env}]
-             (action [{:keys [component state]}]
-       (let [need-to-load? (= nil (get-in @state [:accountData] nil))]
+     (action [{:keys [component state]}]
+             (pprint (str "in mutations ensure-accounts loaded @client"))
+       (let [need-to-load? (= nil (get-in @state [:accountData1] nil))]
          (when need-to-load?
            (let [acc (df/load env [:accountData] accounts/Account {:remote true} )]
-             (swap! state :accountData acc))))))
+             (swap! state :accountData acc)))))
+     (remote [env]
+             (let [{:keys [component state]} env]
+               (pprint (str "in mutations ensure-accounts loaded @client 2"))
+               true)))
 
 

@@ -9,7 +9,7 @@
   static u/InitialAppState
   (initial-state [this params] {:id :profile})
   static om/IQuery
-  (query [this] [:id])
+  (query [this] [:id :pjw])
   static om/Ident
   (ident [this props] [:profile :page])
   Object

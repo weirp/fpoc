@@ -117,7 +117,9 @@
       ; . no valid bidi match. BYPASS. We don't handle it.
       (if valid-page?
         (render-page uri bidi-match user language)
-        (handler req)))))
+        (do
+          (timbre/info (str "wrap-server-side-rendering; uri=" uri " req=" req))
+          (handler req))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; SERVER

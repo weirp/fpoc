@@ -6,7 +6,8 @@
             [clojure.set :as set]
             [fulcro.server :as server]))
 
-(def waivBase ( (server/load-config {:config-path "config/dev.edn"} ) :waivserver)    )
+;(def waivBase ( (server/load-config {:config-path "config/dev.edn"} ) :waivserver)    )
+(def waivBase ( (server/load-config) :waivserver)    )
 
 (defn getBankInfo []
   (http/request {:url (str (:waivserver (server/load-config)) "/json/v1/api/bank")
@@ -104,9 +105,44 @@
         (timbre/info "cookie is " (headers :set-cookie))
         (timbre/info "edn looks like " (json/read-str body))
 
-        (let [result (map (fn [acc] {:account/name (acc "accountName")
-                                     :account/balance (acc "balance")
-                                     :account/number (acc "accountNumber")})
-                          (json/read-str body))]
+        (let [result (doall
+                       (map (fn [acc] {:account/name (acc "accountName")
+                                       :account/balance (acc "balance")
+                                       :account/number (acc "accountNumber")})
+                            (json/read-str body))) ]
+          (timbre/info (str "mapped to " result))
+          (doall (map #(timbre/info %) result))
           (timbre/info (str "mapped to " result))
           result)))))
+
+(defn loadAccounts1 [token]
+  (timbre/info (str "token is" token))
+  (let [options {:headers {"X-header" "value"
+                           "Content-Type" "application/json"
+                           "Cookie" token}
+                 :basic-auth ["waiv_api" "1testSecret4WA!V"]
+                 :as :text}
+        ;config (fulcro.server/load-config "config/dev.edn")
+        base waivBase                                       ;(:waivserver (server/load-config))  ;"http://localhost:9080/waiv-service"
+        url (str base "/json/v1/api/account/")
+        {:keys [status headers body error] :as resp} @(http/get url options)]
+    (timbre/info "back from call " url)
+    (timbre/info (str "options=" options))
+    (timbre/info "body=" body)
+    (timbre/info "headers=" headers)
+
+    (if (or error (not= status 200))
+      (println "Failed, exception: " error ", status=" status)
+      (println "HTTP GET success: " status))
+    (if (or error (not= 200 status))
+      error
+      (do
+        (timbre/info "error = " error ", status=" status)
+        (timbre/info "body = " body)
+        (timbre/info "cookie is " (headers :set-cookie))
+        (timbre/info "edn looks like " (json/read-str body))
+
+        (let [result (first (json/read-str body)) ]
+          {:account/name (result "accountName")
+           :account/balance (result "balance")
+           :account/number (result "accountNumber")})))))

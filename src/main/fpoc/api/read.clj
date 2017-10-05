@@ -61,14 +61,34 @@
               {:name username :email username :uid "121212121" :token (loggy-in :token)})))
 
 (defquery-root :accountData
-     (value [{:keys [request] :as env} {:keys [test token] :as params} ]
+     (value [{:keys [request ast] :as env} {:keys [token] :as params} ]
+            (timbre/info "")
+            (timbre/info "")
             (timbre/info "in read :accounts")
             (timbre/info "env=" env)
+            (timbre/info "ast=" ast)
             (timbre/info "params" params)
 
             (let [accounts (rbe/loadAccounts token)]
               ;(timbre/info "returning " result)
               accounts)))
+
+(defquery-root :accountData1
+               (value [{:keys [request ast] :as env} {:keys [token] :as params} ]
+                      (timbre/info "")
+                      (timbre/info "")
+                      (timbre/info "in read :accounts")
+                      (timbre/info "env=" env)
+                      (timbre/info "ast=" ast)
+                      (timbre/info "params" params)
+
+                      (let [accounts (rbe/loadAccounts1 token)]
+                        accounts)))
+
+(defquery-root :pjw
+               (value [{:keys [request ast] :as env} {:keys [token] :as params}]
+                  (timbre/info "in read :pjw")
+                      {}))
 
 (defquery-root :token
      (value [{:keys [request] :as env} {:keys [test token] :as params} ]

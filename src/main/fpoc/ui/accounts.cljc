@@ -16,22 +16,23 @@
 (defui Account
   static fc/InitialAppState
   (initial-state
-    [comp-class {:keys [number balance name] :as props}]
+    [comp-class {:keys [number balance name] :or {number "nah" balance "nah" name "nah"} :as props}]
     {:account/number number
      :account/name name
      :account/balance balance})
   static om/Ident
   (ident [this props]
     (do
-      (pprint (str "here's the props given for Account ident" props))
-      [:accounts/by-number (:account/number props)]) )
+      (pprint (str "Account ident,props=" props))
+      [:accounts/by-number :testssss]) )
   static om/IQuery
   (query [this] [:account/number :account/name :account/balance ])
   Object
   (render [this]
-    (let [{:keys [account/number account/name account/balance] :as data} (om/props this)]
+    (pprint "Account render")
+    (let [{:keys [account/number account/name account/balance] :or {account/number "undef" account/name "undef" account/balance "undef"} :as data} (om/props this)]
       (dom/div #js {:className "container-fluid col-12"}
-               (pprint (str "in acc, data is " data))
+               (pprint (str "rendering Account, data is " data))
                (dom/label #js {:className "col-3"} "Account Number")
                (dom/label #js {:className "col-3" } number)
                (dom/br nil)
@@ -41,62 +42,43 @@
                (dom/label #js {:className "col-3"} "Balance")
                (dom/label #js {:className "col-3" } balance)))))
 
-(def ui-account (om/factory Account
-                            {:keyfn :account/number}
-                            ))
+(def ui-account (om/factory Account {:keyfn :account/number}))
 
 
-(defui AccountList
-  static fc/InitialAppState
-  (initial-state [comp-class {:keys [] :as props}]
-    (do
-      (pprint (str "initial-state" comp-class props))
-      {:accountList/accounts {}}))
-
-  )
-
-(def ui-account-list (om/factory AccountList ))
 
 (defui ^:once AccountsPage
   static u/InitialAppState
   (initial-state [this params]
     (do
-      (pprint (str "initial-state" this params))
+      (pprint (str "Account:initial-state" this params))
 
       ;(df/load this :accounts {})
       ;(df/load-action )
       ;(df/load-action)
       {:id :accounts
-       :accountData []
-       :myAccountData []}  )
+       :accountData1 (fc/get-initial-state Account params)}  )
     )
   static om/IQuery
-  (query [this] [:id
-                 [:current-user '_]
-                 [:accountData '_]])
+  (query [this]
+    (do
+      (pprint "AccountsPage: query")
+      [:id
+       [:current-user '_]
+       [:accountData1 '_]
+       ]) )
   static om/Ident
-  (ident [this props] [:accounts :page])
+  (ident [this props]
+    (do
+      (pprint (str "AccountsPage:ident " this props))
+      [:accounts :page]) )
   Object
   (render [this]
-        (let [
-          {:keys [current-user accountData]} (om/props this)
-
-              ;;; don't load in render, make a button and put this in fn ... like login
-              ;accounts (df/load this :accounts Account {:params {:token (current-user :token)} })
-              ]
-
+        (let [{:keys [current-user accountData1] :or {current-user "undefined" accountData1 "undefined"}} (om/props this)]
           (dom/div #js {}
-                   (pprint (str "current user token=" (current-user :token)))
-                   (pprint (str "accountData size" (count accountData)))
-                   (pprint accountData)
-                   (pprint (first accountData))
-                   (map #(pprint (str "an account " %)) accountData)
-                   ;(map ui-account accountData)
-
-                   (ui-account (first accountData))
-                   )
-
-
-      )))
+                   (pprint (str "rendering AccountsPage: current user token=" (current-user :token)
+                                " accountData=" accountData1))
+                   ;(ui-account (first accountData))
+                   (ui-account accountData1)
+                   ))))
 
 (def ui-accounts-page (om/factory AccountsPage ))

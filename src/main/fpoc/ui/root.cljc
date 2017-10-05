@@ -67,7 +67,7 @@
                            ;(df/load this :waiv-user user/User { :post-mutation `api/login-complete-waiv
                            ;                                    :params {:username username :password password}
                            ;                                    :refresh       [:logged-in? :current-user]})
-                           (df/load this :accountData accounts/Account {:params        {:token (current-user :token)}})
+                           ;(df/load this :accountData1 accounts/Account {:params        {:token (current-user :token) :target [:accountData1]}})
                            )]
 
     (dom/div #js {:className "container col-12"}
@@ -107,10 +107,14 @@
                                           ;#(om/transact! this `[(ops/check-accounts-loaded {:comp ~this}) (r/nav-to! ~this :accounts)] )
                                           ;#(om/transact! this `[ (r/nav-to! ~this :accounts)] )
 
+
                                           (dom/a #js {:className "nav-item nav-link active" :onClick #(r/nav-to! this :accountLimits)} (tr "Account Limits"))
 
                                           (dom/a #js {:className "nav-item nav-link active" :onClick #(r/nav-to! this :main)} (tr "Main"))
-                                          (dom/a #js {:className "nav-item nav-link active" :onClick #(r/nav-to! this :preferences)} (tr "Preferences")))))))))
+                                          (dom/a #js {:className "nav-item nav-link active" :onClick #(r/nav-to! this :preferences)} (tr "Preferences"))
+
+                                          (dom/a #js {:className "nav-item nav-link active" :onClick #(om/transact! this `[m/change-locale {:lang :es}])} (tr "load accounts") )
+                                          )))))))
 
 ;; Add other modals here.
 (defui ^:once Modals
