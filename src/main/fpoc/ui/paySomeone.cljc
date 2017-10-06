@@ -11,14 +11,14 @@
 (defui PaySomeoneLocal
   Object
   (render [this]
-    (dom/div nil "Local")))
+    (dom/div nil (tr "Local"))))
 
 (def ui-paysomeone-local (om/factory PaySomeoneLocal))
 
 (defui PaySomeoneInternational
   Object
   (render [this]
-           (dom/div nil "International")))
+           (dom/div nil (tr "International"))))
 
 (def ui-paysomeone-international (om/factory PaySomeoneInternational))
 

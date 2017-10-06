@@ -68,13 +68,13 @@ thisBank :: BankInfo
 thisBank = BankInfo {code = "SAND", countryCode = "PHP", currency = "PHP"}
 
 data Account
-  = Account {number :: String, name :: String, balance :: Double}
+  = Account {accountNumber :: String, accountName :: String, balance :: Double}
   deriving (Show, Generic)
 instance ToJSON Account
 instance FromJSON Account
 
-thisAccount :: Account
-thisAccount = Account {number = "12345678", name = "test account", balance = 1054.32}
+thisAccounts :: [Account]
+thisAccounts = [Account {accountNumber = "12345678", accountName = "test account", balance = 1054.32}]
 
 {-
 getCookies :: ActionM (Maybe CookiesText) -}
@@ -127,7 +127,7 @@ curl -v -c - -X POST localhost:3002/json/v1/api/users/authenticate -d '{"usernam
         json (filter (passesAuth (t ::SiteUser)) siteUsers)
 
   get "/json/v1/api/account" $ do
-    json thisAccount
+    json thisAccounts
 
   get "/v1/ api/ integration/ queues" $ do
     {-_

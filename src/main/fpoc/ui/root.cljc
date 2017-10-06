@@ -26,15 +26,12 @@
 
     [fpoc.api.operations :as ops]
 
+    [fpoc.ui.paySomeone :as paySomeone]
 
-    #?@(:clj  [
-    [taoensso.timbre :as logx]]
-        :cljs [[goog.log :as logx]])
+    [om.next :as om]
 
-    #?@(:clj  [
-    [clojure.pprint :refer [pprint]]]
-        :cljs [[cljs.pprint :refer [pprint]]])
-    [fpoc.ui.paySomeone :as paySomeone]))
+    #?@(:clj  [[clojure.pprint :refer [pprint]]]
+        :cljs [[cljs.pprint :refer [pprint]]])))
 
 (defrouter Pages :page-router
            (ident [this props] [(:id props) :page])
@@ -66,16 +63,30 @@
   (let [login      #(r/nav-to! this :login)
         logout     #(om/transact! this `[(api/logout {}) (r/set-route! {:handler :login}) :current-user])
         {:keys [ui/loading-data current-user]} (om/props this)
-        logged-in? (contains? current-user :name)]
+        logged-in? (contains? current-user :name)
+        {:keys [ui/locale]} (om/props this)]
 
     (dom/div #js {:className "container col-12"}
              (dom/div #js {:className "navbar navbar-expand navbar-light bg-brand"}
                       (dom/div #js {:className "container-fluid"}
-                               (dom/div #js {:className "navbar-header col-2"}
+                               (dom/div #js {:className "navbar-header col-9"}
                                         (dom/span #js {:className "navbar-brand col-6"}
                                                   (dom/span nil
                                                             (dom/img #js {:src "/images/logo.png" :alt "waiv logo"}))))
 
+                               (dom/div #js {}
+                                        (dom/select #js {:className "btn btn-secondary"
+                                                         :id "languageSelector"
+                                                         :onChange (fn [evt]
+                                                                     (let [val (symbol (-> evt .-target .-value))]
+                                                                       (pprint val)
+                                                                       (om/transact! this `[(m/change-locale {:lang ~val})])))
+                                                         :value (name locale)}
+
+                                                    (dom/option #js {:value "en" } "English")
+                                                    (dom/option #js {:value "es" } "Spanish")
+                                                    (dom/option #js {:value "mi_NZ"} "Te Reo"))
+                                        )
                                (dom/div #js {:className "col-2"}
                                         (if logged-in?
                                           (ui-login-stats loading-data current-user logout)
@@ -89,24 +100,13 @@
                                           (dom/a #js {:className "nav-item nav-link active col-2" :onClick #(r/nav-to! this :profile)} (tr "Profile"))
                                           (dom/a #js {:className "nav-item nav-link active col-2" :onClick #(r/nav-to! this :accounts)} (tr "Account"))
                                           (dom/a #js {:className "nav-item nav-link active col-2" :onClick #(r/nav-to! this :paySomeone)} (tr "Pay Someone"))
-                                          (dom/a #js {:className "nav-item nav-link active col-2" :onClick #(r/nav-to! this :accountLimits)} (tr "Account Limits"))
+                                          (dom/a #js {:className "nav-item nav-link active col-3" :onClick #(r/nav-to! this :accountLimits)} (tr "Account Limits"))
 
                                           ;(dom/a #js {:className "nav-item nav-link active" :onClick #(r/nav-to! this :main)} (tr "Main"))
                                           ;(dom/a #js {:className "nav-item nav-link active col-4" :onClick #(r/nav-to! this :preferences)} (tr "Preferences"))
 
-                                          (dom/div #js {:className "navbar-right"}
-                                                   (dom/span #js {:className " navbar-text "}
-                                                             (dom/a #js {:className "navbar-btn btn-sm btn btn-secondary" :onClick #(om/transact! this `[(m/change-locale {:lang :en})]) :href "#"} "en")
-                                                             (dom/a #js {:className "navbar-btn btn-sm btn btn-secondary" :onClick #(om/transact! this `[(m/change-locale {:lang :es})]) :href "#"} "es")
-                                                             (dom/a #js {:className "navbar-btn btn-sm btn btn-secondary" :onClick #(om/transact! this `[(m/change-locale {:lang :mi_NZ})]) :href "#"} "mi_NZ"))
-                                                   (dom/span #js {:className "navbar-text"}
-                                                             (dom/select #js {}
-                                                                         (dom/option #js {:onClick #(om/transact! this `[(m/change-locale {:lang :en})])} "English")
-                                                                         (dom/option #js {:onClick #(om/transact! this `[(m/change-locale {:lang :es})])} "Spanish")
-                                                                         (dom/option #js {:onClick #(om/transact! this `[(m/change-locale {:lang :mi_NZ})])} "Te Reo")
-                                                                         )
-                                                             )
-                                                   ))))))))
+                                          )))))))
+
 
 ;; Add other modals here.
 (defui ^:once Modals
@@ -138,7 +138,7 @@
                           :pages        (fc/get-initial-state Pages nil)}
                          r/app-routing-tree))
   static om/IQuery
-  (query [this] [:ui/react-key :ui/ready? :logged-in?
+  (query [this] [:ui/react-key :ui/ready? :logged-in? :ui/locale
                  {:current-user (om/get-query user/User)}
                  {:root/modals (om/get-query Modals)}
                  fulcro.client.routing/routing-tree-key     ; TODO: Check if this is needed...seemed to affect initial state from ssr

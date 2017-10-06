@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-18 01:44-0500\n"
+"POT-Creation-Date: 2017-10-06 11:38+0800\n"
 "PO-Revision-Date: 2017-07-18 01:45-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -18,102 +18,157 @@ msgstr ""
 "X-Generator: Poedit 2.0.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: i18n/i18n.js:36462
-msgid "Passwords must match"
-msgstr "Las contraseñas deben coincidir"
-
-#: i18n/i18n.js:36494
-msgid "Please supply your name.`"
-msgstr "Por favor suministre su nombre"
-
-#: i18n/i18n.js:36497
-msgid "Name"
-msgstr "Nombre"
-
-#: i18n/i18n.js:36497
-msgid "Must be a valid email address.`"
-msgstr "Debe ser una dirección de correo electrónico válida"
-
-#: i18n/i18n.js:36500
-msgid "Email Address"
-msgstr "Dirección de correo electrónico"
-
-#: i18n/i18n.js:36501
-msgid "Password must be at least 7 characters long"
-msgstr "La contraseña debe contener al menos 7 caracteres"
-
-#: i18n/i18n.js:36503 i18n/i18n.js:36619
-msgid "Password"
-msgstr "Contraseña"
-
-#: i18n/i18n.js:36508
-msgid "Verify Password"
-msgstr "Verificar Contraseña"
-
-#: i18n/i18n.js:36509
-msgid "A server error happened. Please try again."
-msgstr "Ocurrió un error de servidor. Por favor, inténtelo de nuevo."
-
-#: i18n/i18n.js:36510
-msgid "Sign Up!"
-msgstr "¡Registrarse!"
-
-#: i18n/i18n.js:36512
-msgid "Welcome! Your account has been created. "
-msgstr "¡Bienvenido! Tu cuenta ha sido creada."
-
-#: i18n/i18n.js:36514
-msgid "Please, log in."
-msgstr "Por favor, inicia sesión."
-
-#: i18n/i18n.js:36578
+#: i18n/i18n.js:35236
 msgid "Main page"
 msgstr "Página Principal"
 
-#: i18n/i18n.js:36615
-msgid "Email"
-msgstr "Email"
+#: i18n/i18n.js:35261
+msgid "Local"
+msgstr ""
 
-#: i18n/i18n.js:36622
-msgid "Unable to contact server. Try again later."
-msgstr "Incapaz de contactar con el servidor. Vuelva a intentarlo más tarde."
+#: i18n/i18n.js:35280
+msgid "International"
+msgstr ""
 
-#: i18n/i18n.js:36623
-msgid "Don't have a login yet? "
-msgstr "¿Todavía no tienes una cuenta?"
+#: i18n/i18n.js:35301
+msgid "Pay Someone page"
+msgstr ""
 
-#: i18n/i18n.js:36624
-msgid "Sign up!"
-msgstr "¡Regístrate!"
+#: i18n/i18n.js:36930
+msgid "Passwords must match"
+msgstr "Las contraseñas deben coincidir"
 
-#: i18n/i18n.js:36655
+#: i18n/i18n.js:36966
+msgid "Please supply your name.`"
+msgstr "Por favor suministre su nombre"
+
+#: i18n/i18n.js:36969 i18n/i18n.js:37943
+msgid "Name"
+msgstr "Nombre"
+
+#: i18n/i18n.js:36969
+msgid "Must be a valid email address.`"
+msgstr "Debe ser una dirección de correo electrónico válida"
+
+#: i18n/i18n.js:36972
+msgid "Email Address"
+msgstr "Dirección de correo electrónico"
+
+#: i18n/i18n.js:36973
+msgid "Password must be at least 7 characters long"
+msgstr "La contraseña debe contener al menos 7 caracteres"
+
+#: i18n/i18n.js:36975 i18n/i18n.js:38146
+msgid "Password"
+msgstr "Contraseña"
+
+#: i18n/i18n.js:36980
+msgid "Verify Password"
+msgstr "Verificar Contraseña"
+
+#: i18n/i18n.js:36980
+msgid "A server error happened. Please try again."
+msgstr "Ocurrió un error de servidor. Por favor, inténtelo de nuevo."
+
+#: i18n/i18n.js:36982
+msgid "Sign Up!"
+msgstr "¡Registrarse!"
+
+#: i18n/i18n.js:36984
+msgid "Welcome! Your account has been created. "
+msgstr "¡Bienvenido! Tu cuenta ha sido creada."
+
+#: i18n/i18n.js:36985
+msgid "Please, log in."
+msgstr "Por favor, inicia sesión."
+
+#: i18n/i18n.js:37941
+msgid "Account Number"
+msgstr ""
+
+#: i18n/i18n.js:37943
+msgid "Account to Account Transfer"
+msgstr ""
+
+#: i18n/i18n.js:37943
+msgid "Balance"
+msgstr ""
+
+#: i18n/i18n.js:37945
+msgid "Send Money Abroad"
+msgstr ""
+
+#: i18n/i18n.js:38048
+#, fuzzy
+msgid "Profile page"
+msgstr "Página de preferencias"
+
+#: i18n/i18n.js:38074
+msgid "Account Limits page"
+msgstr ""
+
+#: i18n/i18n.js:38100
 msgid "Preferences page"
 msgstr "Página de preferencias"
 
-#: i18n/i18n.js:36725
+#: i18n/i18n.js:38142
+msgid "Email"
+msgstr "Email"
+
+#: i18n/i18n.js:38150
+msgid "Unable to contact server. Try again later."
+msgstr "Incapaz de contactar con el servidor. Vuelva a intentarlo más tarde."
+
+#: i18n/i18n.js:38151
+msgid "Bad username or password."
+msgstr ""
+
+#: i18n/i18n.js:38151
+msgid "Don't have a login yet? "
+msgstr "¿Todavía no tienes una cuenta?"
+
+#: i18n/i18n.js:38154
+msgid "Sign up!"
+msgstr "¡Regístrate!"
+
+#: i18n/i18n.js:38234
 msgid "Log out"
 msgstr "Cerrar la sesión"
 
-#: i18n/i18n.js:36727
+#: i18n/i18n.js:38236
 msgid "Sign in"
 msgstr "Autenticarse"
 
-#: i18n/i18n.js:36739
-msgid "Main"
-msgstr "Principal"
+#: i18n/i18n.js:38248
+msgid "Profile"
+msgstr ""
 
-#: i18n/i18n.js:36740
-msgid "Preferences"
-msgstr "Preferencias"
+#: i18n/i18n.js:38249
+msgid "Account"
+msgstr ""
 
-#: i18n/i18n.js:36758
+#: i18n/i18n.js:38250
+msgid "Pay Someone"
+msgstr ""
+
+#: i18n/i18n.js:38251
+msgid "Account Limits"
+msgstr ""
+
+#: i18n/i18n.js:38269
 msgid "Welcome!"
 msgstr "¡Bienvenido!"
 
-#: i18n/i18n.js:36758
+#: i18n/i18n.js:38269
 msgid "Glad you could join us!"
 msgstr "Me alegro de que usted podría unirse a nosotros!"
 
-#: i18n/i18n.js:36762
+#: i18n/i18n.js:38273
 msgid "Thanks!"
 msgstr "¡Gracias!"
+
+#~ msgid "Main"
+#~ msgstr "Principal"
+
+#~ msgid "Preferences"
+#~ msgstr "Preferencias"

@@ -7,9 +7,15 @@
             [om.transit :as t]
             [clojure.string :as str]
             [clojure.set :as set]
-            [om.next :as om]
-            )
+            [om.next :as om])
+  (:require-macros [adzerk.env :as env])
   (:import [goog.net XhrIo EventType]))
+
+(env/def
+  waivserver :required)
+
+(def testBase "http://jsonplaceholder.typicode.com")
+
 
 (defn make-xhrio [] (XhrIo.))
 
@@ -64,7 +70,7 @@
           ; some logic to morph the incoming request into REST (assume you'd factor this out to handle numerous kinds)
           request-ast (-> (om/query->ast edn) :children first)
           uri         (str "/" (name (:key request-ast)))   ; in this case, posts
-          url         (str "http://jsonplaceholder.typicode.com" uri)]
+          url         (str waivserver uri)]
       (js/console.log (str "calling rest endpoint " url) )
 
 

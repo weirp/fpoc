@@ -36,20 +36,20 @@
       (dom/div #js {:className "container-fluid col-12"}
                (pprint (str "rendering Account, data is " data))
                (dom/br nil)
-               (dom/label #js {:className "col-3"} "Account Number")
+               (dom/label #js {:className "col-3"} (tr "Account Number"))
                (dom/label #js {:className "col-2" } number)
                (dom/button #js {:className "btn btn-primary"
                                 :onClick  (fn [evt]
-                                            (r/nav-to! this :paySomeone {:ui/internationalPayment false}))} "Account to Account Transfer")
+                                            (r/nav-to! this :paySomeone {:ui/internationalPayment false}))} (tr "Account to Account Transfer"))
                (dom/br nil)
-               (dom/label #js {:className "col-3"} "Name")
+               (dom/label #js {:className "col-3"} (tr "Name"))
                (dom/label #js {:className "col-3" } name)
                (dom/br nil)
-               (dom/label #js {:className "col-3"} "Balance")
+               (dom/label #js {:className "col-3"} (tr "Balance"))
                (dom/label #js {:className "col-2" } balance)
                (dom/button #js {:className "btn btn-primary"
                                 :onClick  (fn [evt]
-                                            (r/nav-to! this :paySomeone {:ui/internationalPayment true}))} "Send Money Abroad")
+                                            (r/nav-to! this :paySomeone {:ui/internationalPayment true}))} (tr "Send Money Abroad"))
                (dom/br nil)
 
 

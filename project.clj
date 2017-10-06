@@ -14,7 +14,8 @@
                  [bk/ring-gzip "0.2.1"]
                  [http-kit "2.2.0"]
                  [com.taoensso/timbre "4.10.0"]
-                 [fulcrologic/fulcro-spec "1.0.0-beta9" :scope "test" :exclusions [commons-codec fulcrologic/fulcro commons-fileupload]]]
+                 [fulcrologic/fulcro-spec "1.0.0-beta9" :scope "test" :exclusions [commons-codec fulcrologic/fulcro commons-fileupload]]
+                 [adzerk/env "0.4.0"]]
 
   :uberjar-name "fpoc.jar"
 

@@ -7,7 +7,8 @@
             [fulcro.server :as server]))
 
 ;(def waivBase ( (server/load-config {:config-path "config/dev.edn"} ) :waivserver)    )
-(def waivBase ( (server/load-config) :waivserver)    )
+(defn waivBase []
+  ( (server/load-config) :waivserver)    )
 
 (defn getBankInfo []
   (http/request {:url (str (:waivserver (server/load-config)) "/json/v1/api/bank")
@@ -40,7 +41,7 @@
                  :basic-auth ["waiv_api" "1testSecret4WA!V"]
                  :as :text}
         ;config (fulcro.server/load-config "config/dev.edn")
-        base waivBase                                       ;(:waivserver (server/load-config))
+        base (waivBase)                                       ;(:waivserver (server/load-config))
         {:keys [status headers body error] :as resp} @(http/get (str base "/json/v1/api/bank") options)]
     (if error
       (println "Failed, exception: " error)
@@ -56,7 +57,7 @@
                  :as :text
                  :body (json/write-str {"username" user "password" password})}
         ;config (fulcro.server/load-config "config/dev.edn")
-        base  waivBase                                             ;((server/load-config "config/dev.edn") :waivserver )  ;"http://localhost:9080/waiv-service"
+        base  (waivBase)                                             ;((server/load-config "config/dev.edn") :waivserver )  ;"http://localhost:9080/waiv-service"
         url (str base "/json/v1/api/user/authenticate")
         {:keys [status headers body error] :as resp} @(http/post url options)]
     (timbre/info "back from call " url)
@@ -86,7 +87,7 @@
                  :basic-auth ["waiv_api" "1testSecret4WA!V"]
                  :as :text}
         ;config (fulcro.server/load-config "config/dev.edn")
-        base waivBase                                       ;(:waivserver (server/load-config))  ;"http://localhost:9080/waiv-service"
+        base (waivBase)                                       ;(:waivserver (server/load-config))  ;"http://localhost:9080/waiv-service"
         url (str base "/json/v1/api/account/")
         {:keys [status headers body error] :as resp} @(http/get url options)]
     (timbre/info "back from call " url)
@@ -123,7 +124,7 @@
                  :basic-auth ["waiv_api" "1testSecret4WA!V"]
                  :as :text}
         ;config (fulcro.server/load-config "config/dev.edn")
-        base waivBase                                       ;(:waivserver (server/load-config))  ;"http://localhost:9080/waiv-service"
+        base (waivBase)                                       ;(:waivserver (server/load-config))  ;"http://localhost:9080/waiv-service"
         url (str base "/json/v1/api/account/")
         {:keys [status headers body error] :as resp} @(http/get url options)]
     (timbre/info "back from call " url)
