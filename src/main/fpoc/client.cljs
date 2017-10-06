@@ -25,6 +25,7 @@
                               (let [state (om/app-state reconciler)
                                     root  (om/app-root reconciler)
                                     {:keys [ui/locale ui/ready?]} @state]
+                                (log/info (str "in started callback, ready?=" ready? " locale=" locale))
                                 (if ready?                  ; The only way ready is true, is if we're coming from a server-side render
                                   (routing/start-routing root)
                                   (f/load app :current-user user/User {:post-mutation        `m/login-complete

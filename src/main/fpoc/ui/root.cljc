@@ -64,7 +64,9 @@
         logout     #(om/transact! this `[(api/logout {}) (r/set-route! {:handler :login}) :current-user])
         {:keys [ui/loading-data current-user]} (om/props this)
         logged-in? (contains? current-user :name)
-        {:keys [ui/locale]} (om/props this)]
+        {:keys [ui/locale] :or {ui/locale :en}} (om/props this)
+        ]
+    (pprint (str "in navbar locale=" locale))
 
     (dom/div #js {:className "container col-12"}
              (dom/div #js {:className "navbar navbar-expand navbar-light bg-brand"}
@@ -78,8 +80,8 @@
                                         (dom/select #js {:className "btn btn-secondary"
                                                          :id "languageSelector"
                                                          :onChange (fn [evt]
-                                                                     (let [val (symbol (-> evt .-target .-value))]
-                                                                       (pprint val)
+                                                                     (let [val (keyword (-> evt .-target .-value))]
+                                                                       (pprint (str "in event hadler of locale select" val) )
                                                                        (om/transact! this `[(m/change-locale {:lang ~val})])))
                                                          :value (name locale)}
 
@@ -145,8 +147,10 @@
                  :ui/loading-data {:pages (om/get-query Pages)}])
   Object
   (render [this]
-    (let [{:keys [ui/ready? ui/loading-data ui/react-key pages welcome-modal current-user logged-in?] :or {react-key "ROOT"}} (om/props this)]
+
+    (let [{:keys [ui/ready? ui/locale ui/loading-data ui/react-key pages welcome-modal current-user logged-in?] :or {react-key "ROOT" ui/locale :en}} (om/props this)]
       (dom/div #js {:key react-key}
+               (pprint (str "in root render, locale=" locale)  )
         (ui-navbar this)
         (when ready?
           (ui-pages pages))))))

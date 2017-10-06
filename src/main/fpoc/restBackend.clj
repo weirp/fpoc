@@ -8,7 +8,10 @@
 
 ;(def waivBase ( (server/load-config {:config-path "config/dev.edn"} ) :waivserver)    )
 (defn waivBase []
-  ( (server/load-config) :waivserver)    )
+  (timbre/info "loading waivserver property")
+  (let [wsp ( (server/load-config) :waivserver)]
+    (timbre/info (str "wsp=" wsp))
+    wsp))
 
 (defn getBankInfo []
   (http/request {:url (str (:waivserver (server/load-config)) "/json/v1/api/bank")
