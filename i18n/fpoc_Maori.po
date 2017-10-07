@@ -1,0 +1,157 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: POEditor.com\n"
+"Project-Id-Version: fpoc\n"
+"Language: mi\n"
+
+#: i18n/i18n.js:35236
+msgid "Main page"
+msgstr "Whārangi matua"
+
+#: i18n/i18n.js:35261
+msgid "Local"
+msgstr "Paetata"
+
+#: i18n/i18n.js:35280
+msgid "International"
+msgstr "International"
+
+#: i18n/i18n.js:35301
+msgid "Pay Someone page"
+msgstr "Tuku tetahi whārangi"
+
+#: i18n/i18n.js:36930
+msgid "Passwords must match"
+msgstr "Me tika nga kupuhipa"
+
+#: i18n/i18n.js:36966
+msgid "Please supply your name.`"
+msgstr "Tukuna koa to ingoa \""
+
+#: i18n/i18n.js:36969 i18n/i18n.js:37943
+msgid "Name"
+msgstr "Ingoa"
+
+#: i18n/i18n.js:36969
+msgid "Must be a valid email address.`"
+msgstr "Me waiho he wāhitau īmēra tika. \""
+
+#: i18n/i18n.js:36972
+msgid "Email Address"
+msgstr "Wāhitau Īmēra"
+
+#: i18n/i18n.js:36973
+msgid "Password must be at least 7 characters long"
+msgstr "Me roa rawa te roa o te kupuhipa"
+
+#: i18n/i18n.js:36975 i18n/i18n.js:38146
+msgid "Password"
+msgstr "Kupuhipa"
+
+#: i18n/i18n.js:36980
+msgid "Verify Password"
+msgstr "Manatoko Kupuhipa"
+
+#: i18n/i18n.js:36980
+msgid "A server error happened. Please try again."
+msgstr "I puta he hapa tūmau. Tena ngana ano."
+
+#: i18n/i18n.js:36982
+msgid "Sign Up!"
+msgstr "Waitohu Up!"
+
+#: i18n/i18n.js:36984
+msgid "Welcome! Your account has been created. "
+msgstr "Nau mai! I hangahia to korero."
+
+#: i18n/i18n.js:36985
+msgid "Please, log in."
+msgstr "Tena, takiuru."
+
+#: i18n/i18n.js:37941
+msgid "Account Number"
+msgstr "Tau nama"
+
+#: i18n/i18n.js:37943
+msgid "Account to Account Transfer"
+msgstr "Pūkete ki te Whakawhiti Pūkete"
+
+#: i18n/i18n.js:37943
+msgid "Balance"
+msgstr "Tuhinga"
+
+#: i18n/i18n.js:37945
+msgid "Send Money Abroad"
+msgstr "Tukuna Moni Hape"
+
+#: i18n/i18n.js:38048
+msgid "Profile page"
+msgstr "Whārangi tohu"
+
+#: i18n/i18n.js:38074
+msgid "Account Limits page"
+msgstr "Tautuhinga Tautuhinga Moni"
+
+#: i18n/i18n.js:38100
+msgid "Preferences page"
+msgstr "Nga whārangi manakohanga"
+
+#: i18n/i18n.js:38142
+msgid "Email"
+msgstr "Īmēra"
+
+#: i18n/i18n.js:38150
+msgid "Unable to contact server. Try again later."
+msgstr "Kāore e taea te whakapā atu ki te tūmau. Ngana ano i muri."
+
+#: i18n/i18n.js:38151
+msgid "Bad username or password."
+msgstr "Ingoa ingoa kino, kupuhipa ranei."
+
+#: i18n/i18n.js:38151
+msgid "Don't have a login yet? "
+msgstr "Karekau he takiuru ano?"
+
+#: i18n/i18n.js:38154
+msgid "Sign up!"
+msgstr "Waitohu!"
+
+#: i18n/i18n.js:38234
+msgid "Log out"
+msgstr "Puta atu"
+
+#: i18n/i18n.js:38236
+msgid "Sign in"
+msgstr "Waitohu"
+
+#: i18n/i18n.js:38248
+msgid "Profile"
+msgstr "Profile"
+
+#: i18n/i18n.js:38249
+msgid "Account"
+msgstr "Pūkete"
+
+#: i18n/i18n.js:38250
+msgid "Pay Someone"
+msgstr "Utu tetahi"
+
+#: i18n/i18n.js:38251
+msgid "Account Limits"
+msgstr "Tautuhinga Pūkete"
+
+#: i18n/i18n.js:38269
+msgid "Welcome!"
+msgstr "Nau mai!"
+
+#: i18n/i18n.js:38269
+msgid "Glad you could join us!"
+msgstr "Kia pai koe ki te uru atu ki a matou!"
+
+#: i18n/i18n.js:38273
+msgid "Thanks!"
+msgstr "Mauruuru!"
+
