@@ -5,6 +5,9 @@
             [om.dom :as dom]
             [fulcro.client.mutations :as m]
             ;[fpoc.ui.accounts :as accounts]
+    #?@(:clj  [
+            [clojure.pprint :refer [pprint]]]
+        :cljs [[cljs.pprint :refer [pprint]]])
             ))
 
 
@@ -33,9 +36,12 @@
   (query [this] [:id
                  [:current-user '_]
                  [:accountData1 '_]
-                 :ui/internationalPayment])
+                 [:ui/internationalPayment '_] ])
   static om/Ident
-  (ident [this props] [:paySomeone :page])
+  (ident [this props]
+    (do
+      (pprint (str "PaySomeonePg ident " this props) )
+      [:paySomeone :page]) )
   Object
   (render [this]
     (let [{:keys [current-user accountData1 ui/internationalPayment]} (om/props this)]

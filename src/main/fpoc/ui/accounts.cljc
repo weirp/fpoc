@@ -8,6 +8,7 @@
             [taoensso.timbre :as timbre]
             [fpoc.ui.user :as user]
             [fpoc.ui.paySomeone :as paySomeone]
+    [fpoc.api.ops2 :as ops2]
 
     #?@(:clj  [
             [clojure.pprint :refer [pprint]]]
@@ -40,6 +41,7 @@
                (dom/label #js {:className "col-2" } number)
                (dom/button #js {:className "btn btn-primary"
                                 :onClick  (fn [evt]
+                                            (om/transact! this `[(ops2/set-thing {:val false})])
                                             (r/nav-to! this :paySomeone {:ui/internationalPayment false}))} (tr "Account to Account Transfer"))
                (dom/br nil)
                (dom/label #js {:className "col-3"} (tr "Name"))
@@ -49,12 +51,9 @@
                (dom/label #js {:className "col-2" } balance)
                (dom/button #js {:className "btn btn-primary"
                                 :onClick  (fn [evt]
+                                            (om/transact! this `[(ops2/set-thing {:val true})])
                                             (r/nav-to! this :paySomeone {:ui/internationalPayment true}))} (tr "Send Money Abroad"))
-               (dom/br nil)
-
-
-
-               ))))
+               (dom/br nil)))))
 
 (def ui-account (om/factory Account {:keyfn :account/number}))
 
